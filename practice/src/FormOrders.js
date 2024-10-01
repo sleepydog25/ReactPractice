@@ -1,9 +1,22 @@
-import React from "react";
+import React , {useState} from "react";
+import Button from "./Button";
 
 const FormOrders = () => {
+  const [appleValue, setAppleValue] = useState(""); // follow apple value
+
   return (
     <div>
-      <h3>Apple</h3>
+      {/* this section is not finish */}
+      <section>
+        <label htmlFor="apple">Apple</label>
+        <Button text="-5" color="white"/>
+        <Button text="-1" color="white"/>
+        <input type="number" id="apple" name="apple" disabled/>
+        <Button text="+1" color="white"/>
+        <Button text="+5" color="white"/>
+
+      </section>
+
       <br />
       <section>
         <h3>banana</h3>
