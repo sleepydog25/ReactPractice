@@ -3,25 +3,15 @@ import Button from "./Button";
 
 const FormOrders = () => {
 
+  // find appleValue in localstorage or return 0
   const[count, setCount] = useState(()=>{
     const storedAppleValue = localStorage.getItem("appleValue");
     return storedAppleValue ? Number(storedAppleValue):0;
   });
 
-  const decreaseFive = () => {
-    setCount(count - 5);
-  };
-
-  const decreaseOne = () => {
-    setCount(count - 1);
-  };
-
-  const increaseFive = () => {
-    setCount(count + 5);
-  };
-
-  const increaseOne = () => {
-    setCount(count + 1);
+  //count the apple
+  const updateCount = (amount) =>{
+    setCount((prevCount) => prevCount + amount)
   };
 
   //store apple count into localStorage
@@ -33,11 +23,11 @@ const FormOrders = () => {
     <div>
       <section>
         <label htmlFor="apple">Apple</label>
-        <Button text="-5" color="white" onClick={decreaseFive} />
-        <Button text="-1" color="white" onClick={decreaseOne} />
+        <Button text="-5" color="white" onClick={() => updateCount(-5)} />
+        <Button text="-1" color="white"  onClick={() => updateCount(-1)} />
         <input type="number" id="apple" name="apple" value={count} disabled />
-        <Button text="+1" color="white" onClick={increaseOne} />
-        <Button text="+5" color="white" onClick={increaseFive} />
+        <Button text="+1" color="white"  onClick={() => updateCount(1)} />
+        <Button text="+5" color="white"  onClick={() => updateCount(5)} />
       </section>
 
       <br />

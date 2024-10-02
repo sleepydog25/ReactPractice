@@ -23,7 +23,7 @@ const FormOverview = () => {
   useEffect(() => {
     const storedAppleValue = localStorage.getItem("appleValue"); // read directly from localstorage
     if (storedAppleValue) {
-        setAppleValue(storedAppleValue);
+      setAppleValue(storedAppleValue);
     }
   }, []);
 
