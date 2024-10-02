@@ -3,12 +3,10 @@ import React, { useState, useEffect } from "react";
 const FormOverview = () => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
-
   const [appleValue, setAppleValue] = useState(0);
+  const [topping, setToppingValue] = useState([]);
 
-
-
-  // this will need to be refactor  
+  // need to be refactor
   // read user name directly from localstorage
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstName"); // read directly from localstorage
@@ -30,6 +28,13 @@ const FormOverview = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const storedToppings = localStorage.getItem("selectedToppings");
+    if (storedToppings) {
+      setSelectedToppings(JSON.parse(storedToppings));
+    }
+  }, []);
+
   return (
     <div>
       <p>
@@ -40,8 +45,9 @@ const FormOverview = () => {
         <li>
           香蕉配料
           <ul>
-            <li>unordered item 2-1</li>
-            <li>unordered item 2-2</li>
+            {selectedToppins.map((topping, index) => (
+              <li key={index}>{topping}</li>
+            ))}
           </ul>
         </li>
       </ul>

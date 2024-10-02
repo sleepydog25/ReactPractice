@@ -70,12 +70,17 @@ const FormOrders = () => {
         <h3>banana</h3>
         <label htmlFor="toppings">配料</label>
         <br />
-       <input type="checkbox"
-       id={toppings.id}
-       checked={selectedToppings.includes(toppings.id)}
-       onChange={CheckboxChange} />
-
-       <label htmlFor={toppings.id}>{toppings.label}</label>
+        {toppings.map((topping) => (
+          <div key={topping.id}>
+            <input
+              type="checkbox"
+              id={topping.id}
+              checked={selectedToppings.includes(topping.id)}
+              onChange={CheckboxChange}
+            />
+            <label htmlFor={topping.id}>{topping.label}</label>
+          </div>
+        ))}
       </section>
     </div>
   );
