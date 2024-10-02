@@ -5,6 +5,10 @@ const FormOverview = () => {
   const [lastNameValue, setLastNameValue] = useState("");
   const [appleValue, setAppleValue] = useState(0);
   const [toppingValue, setToppingValue] = useState([]);
+  const toppingsMap ={
+    
+
+  };
 
   // need to be refactor
   // read user name directly from localstorage
@@ -42,14 +46,16 @@ const FormOverview = () => {
       </p>
       <ul>
         <li>{appleValue}顆蘋果</li>
-        <li>
-          香蕉配料
-          <ul>
-            {toppingValue.map((topping, index) => (
-              <li key={index}>{topping}</li>
-            ))}
-          </ul>
-        </li>
+        {toppingValue.lenght > 0 && (
+          <li>
+            香蕉配料
+            <ul>
+              {toppingValue.map((topping, index) => (
+                <li key={index}>{toppingsMap[topping]}</li>
+              ))}
+            </ul>
+          </li>
+        )}
       </ul>
     </div>
   );
