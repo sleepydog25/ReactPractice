@@ -54,15 +54,16 @@ const FormOverview = () => {
       <ul>
         <li>{appleValue}顆蘋果</li>
         {toppingValue.length > 0 && (
-        <li>
-          香蕉配料
-          <ul>
-            {toppingValue.map((topping, index) => (
-              <li key={index}>{toppingsMap[topping]}</li>
-            ))}
-          </ul>
-        </li>
-      )}
+  <li>
+    香蕉配料
+    <ul>
+      {toppingValue.map((topping, index) => (
+        <li key={index}>{toppingsMap[topping]}</li>
+      ))}
+    </ul>
+  </li>
+)}
+
       </ul>
     </div>
   );
