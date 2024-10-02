@@ -1,20 +1,34 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 
 const FormOrders = () => {
-  const [appleValue, setAppleValue] = useState(""); // follow apple value
+  const [count, setCount] = useState(0);
+
+  const decreaseFive = () => {
+    setCount(count - 5);
+  };
+
+  const decreaseOne = () => {
+    setCount(count - 1);
+  };
+
+  const increaseFive = () => {
+    setCount(count + 5);
+  };
+
+  const increaseOne = () => {
+    setCount(count + 1);
+  };
 
   return (
     <div>
-      {/* this section is not finish */}
       <section>
         <label htmlFor="apple">Apple</label>
-        <Button text="-5" color="white"/>
-        <Button text="-1" color="white"/>
-        <input type="number" id="apple" name="apple" disabled/>
-        <Button text="+1" color="white"/>
-        <Button text="+5" color="white"/>
-
+        <Button text="-5" color="blue" onClick={decreaseFive} />
+        <Button text="-1" color="white" onClick={decreaseOne} />
+        <input type="number" id="apple" name="apple" value={count} disabled />
+        <Button text="+1" color="white" onClick={increaseOne} />
+        <Button text="+5" color="white" onClick={increaseFive} />
       </section>
 
       <br />
