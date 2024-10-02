@@ -5,9 +5,16 @@ const FormOverview = () => {
   const [lastNameValue, setLastNameValue] = useState("");
   const [appleValue, setAppleValue] = useState(0);
   const [toppingValue, setToppingValue] = useState([]);
-  const toppingsMap ={
-    
-
+  const toppingsMap = {
+    chocolate: "巧克力醬",
+    strawberry: "草莓醬",
+    flax: "胡麻醬",
+    miso: "味噌醬",
+    chili: "辣椒醬",
+    garlic: "大蒜",
+    soy_sauce: "醬油",
+    thick_soy_sauce: "醬油膏",
+    herbal_cream: "百草膏",
   };
 
   // need to be refactor

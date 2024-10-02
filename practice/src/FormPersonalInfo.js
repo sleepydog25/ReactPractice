@@ -19,10 +19,6 @@ const FormPersonalInfo = () => {
     setFirstNameValue(e.target.value);
   };
 
-  const LastNameChange = (e) => {
-    setLastNameValue(e.target.value);
-  };
-
   //when last name change, update last name
   const lastNameChange = (e) => {
     setLastNameValue(e.target.value);
