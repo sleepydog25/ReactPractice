@@ -6,6 +6,9 @@ const FormOverview = () => {
 
   const [appleValue, setAppleValue] = useState(0);
 
+
+
+  // this will need to be refactor  
   // read user name directly from localstorage
   useEffect(() => {
     const storedFirstName = localStorage.getItem("firstName"); // read directly from localstorage
