@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const FormPersonalInfo = () => {
+  const [firstNameValue, setFirstNameValue] = useState(""); // follow first name field
+  const [lastNameValue, setLastNameValue] = useState(""); // follow last name field
   const [addressValue, setAddressValue] = useState(""); // follow address value
-  const [noHouseChecked, setNoHouseChecked] = useState(false); // follow checkbox
-
+  const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
   const [textValue, setTextValue] = useState(""); // follow the textarea
   const maxLength = 2000;
 
-  //when checkbox triggers
+  //when first name change, update first name
+  const firstNameChange = (e) => {
+    setFirstNameValue(e.target.value);
+  };
+
+  //when last name change, update last name
+  const lastNameChange = (e) => {
+    setLastNameValue(e.target.value);
+  };
+
+  //when address checkbox triggers,clear the address input
   const checkboxChange = (e) => {
     setNoHouseChecked(e.target.checked);
     if (e.target.checked) {
@@ -33,11 +44,23 @@ const FormPersonalInfo = () => {
         <section className="userName">
           <label htmlFor="firstName">First Name</label>
           <br />
-          <input type="text" id="firstName" name="firstName" required />
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            onChange={firstNameChange}
+            required
+          />
           <br />
           <label htmlFor="lastName">Last Name</label>
           <br />
-          <input type="text" id="lastName" name="lastName" required />
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            onChange={lastNameChange}
+            required
+          />
         </section>
 
         {/* gender section */}
@@ -94,7 +117,10 @@ const FormPersonalInfo = () => {
         <section>
           <label htmlFor="note">Note</label>
           <br />
-          <p> {textValue.length} / {maxLength} characters</p>
+          <p>
+            {" "}
+            {textValue.length} / {maxLength} characters
+          </p>
           <textarea
             id="note"
             name="note"
