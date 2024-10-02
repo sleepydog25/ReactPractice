@@ -24,7 +24,7 @@ const FormOrders = () => {
     <div>
       <section>
         <label htmlFor="apple">Apple</label>
-        <Button text="-5" color="blue" onClick={decreaseFive} />
+        <Button text="-5" color="white" onClick={decreaseFive} />
         <Button text="-1" color="white" onClick={decreaseOne} />
         <input type="number" id="apple" name="apple" value={count} disabled />
         <Button text="+1" color="white" onClick={increaseOne} />
