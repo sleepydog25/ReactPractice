@@ -49,7 +49,7 @@ const FormOverview = () => {
   return (
     <div>
       <p>
-        以下是 {firstNameValue} {lastNameValue} 的訂單
+        以下是 {firstNameValue || "unknown"} {lastNameValue || "unknown"} 的訂單
       </p>
       <ul>
         <li>{appleValue}顆蘋果</li>
