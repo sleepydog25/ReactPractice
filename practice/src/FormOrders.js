@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 
 const FormOrders = () => {
-  const [count, setCount] = useState(0);
+
+  const [count,setCount] = useState(() => {
+    return localStorage.getItem(appleValue) || 0;
+  });
 
   const decreaseFive = () => {
     setCount(count - 5);
@@ -19,6 +22,11 @@ const FormOrders = () => {
   const increaseOne = () => {
     setCount(count + 1);
   };
+
+  //store apple count into localStorage
+  useEffect(() => {
+    localStorage.setItem("appleValue",count)
+  },[count]);
 
   return (
     <div>
