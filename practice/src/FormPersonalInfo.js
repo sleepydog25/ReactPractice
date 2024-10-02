@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 const FormPersonalInfo = () => {
-  const [firstNameValue, setFirstNameValue] = useState(""); // follow first name field
-  const [lastNameValue, setLastNameValue] = useState(""); // follow last name field
+  // if user input Name, then Name will appear,if there is noting in local storage retrun""
+  const [firstNameValue, setFirstNameValue] = useState(() => {
+    return localStorage.getItem("firstName") || "";
+  });
+  const [lastNameValue, setLastNameValue] = useState(() => {
+    return localStorage.getItem("lastName") || "";
+  });
+
   const [addressValue, setAddressValue] = useState(""); // follow address value
   const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
   const [textValue, setTextValue] = useState(""); // follow the textarea
@@ -11,6 +17,10 @@ const FormPersonalInfo = () => {
   //when first name change, update first name
   const firstNameChange = (e) => {
     setFirstNameValue(e.target.value);
+  };
+
+  const LastNameChange = (e) => {
+    setLastNameValue(e.target.value);
   };
 
   //when last name change, update last name
@@ -37,6 +47,15 @@ const FormPersonalInfo = () => {
   };
   const remainingWords = maxLength - textValue.length;
 
+  //store name into local stroage for FormOverview
+  useEffect(() => {
+    localStorage.setItem("firstName", firstNameValue);
+  }, [firstNameValue]);
+  useEffect(() => {
+    localStorage.setItem("lastName", lastNameValue);
+  }, [lastNameValue]);
+
+
   return (
     <div>
       <form action="#">
@@ -48,6 +67,7 @@ const FormPersonalInfo = () => {
             type="text"
             id="firstName"
             name="firstName"
+            value={firstNameValue}
             onChange={firstNameChange}
             required
           />
@@ -58,6 +78,7 @@ const FormPersonalInfo = () => {
             type="text"
             id="lastName"
             name="lastName"
+            value={lastNameValue}
             onChange={lastNameChange}
             required
           />

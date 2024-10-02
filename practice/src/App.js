@@ -3,6 +3,7 @@ import Title from "./Title.js";
 import Button from './Button.js';
 import FormPersonalInfo from './FormPersonalInfo.js';
 import FormOrders from './FormOrders.js';
+import FormOverview from './FormOverview.js';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       </div>
       <FormPersonalInfo/>
       <FormOrders/>
+      <FormOverview/>
       <p/>
 
 
