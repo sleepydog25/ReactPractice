@@ -4,7 +4,7 @@ const FormOverview = () => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
   const [appleValue, setAppleValue] = useState(0);
-  const [topping, setToppingValue] = useState([]);
+  const [toppingValue, setToppingValue] = useState([]);
 
   // need to be refactor
   // read user name directly from localstorage
@@ -31,7 +31,7 @@ const FormOverview = () => {
   useEffect(() => {
     const storedToppings = localStorage.getItem("selectedToppings");
     if (storedToppings) {
-      setSelectedToppings(JSON.parse(storedToppings));
+      setToppingValue(JSON.parse(storedToppings));
     }
   }, []);
 
@@ -45,7 +45,7 @@ const FormOverview = () => {
         <li>
           香蕉配料
           <ul>
-            {selectedToppins.map((topping, index) => (
+            {toppingValue.map((topping, index) => (
               <li key={index}>{topping}</li>
             ))}
           </ul>
