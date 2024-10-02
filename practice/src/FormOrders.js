@@ -3,8 +3,9 @@ import Button from "./Button";
 
 const FormOrders = () => {
 
-  const [count,setCount] = useState(() => {
-    return localStorage.getItem(appleValue) || 0;
+  const[count, setCount] = useState(()=>{
+    const storedAppleValue = localStorage.getItem("appleValue");
+    return storedAppleValue ? Number(storedAppleValue):0;
   });
 
   const decreaseFive = () => {
@@ -25,8 +26,8 @@ const FormOrders = () => {
 
   //store apple count into localStorage
   useEffect(() => {
-    localStorage.setItem("appleValue",count)
-  },[count]);
+    localStorage.setItem("appleValue", count);
+  }, [count]);
 
   return (
     <div>
