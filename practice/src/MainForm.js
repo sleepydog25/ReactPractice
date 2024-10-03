@@ -4,19 +4,14 @@ import FormPersonalInfo from "./FormPersonalInfo.js";
 import FormOrders from "./FormOrders.js";
 import FormOverview from "./FormOverview.js";
 import NavBarForForm from "./NavBarForForm.js";
+import React from 'react'
 
-const MainForm = ({ formName }) => {
+const MainForm = () => {
   return (
     <div>
-      <NavBarForForm />
-      <Routes>
-        <Route path="/" element={<FormPersonalInfo />} />{/* for people didn't type the right url */}
-        <Route path="/FormPersonalInfo" element={<FormPersonalInfo />} />
-        <Route path="/FormOrders" element={<FormOrders />} />
-        <Route path="/FormOverview" element={<FormOverview />} />
-      </Routes>
+      
     </div>
-  );
-};
+  )
+}
 
-export default MainForm;
+export default MainForm

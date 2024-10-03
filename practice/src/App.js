@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {BrowserRouter as  Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
@@ -25,8 +25,7 @@ function App() {
     setActiveForm(e.target.value);
   };
 
-  return ( 
-    
+  return (
     <div className="theFirstDiv">
       <Title mainFormName={activeForm} />
       <div>
@@ -49,7 +48,11 @@ function App() {
         <Button text="Delete this form" color="Red" />
       </div>
       <div className="mainForm">
-        <MainForm formName={activeForm}/>
+        <MainForm formName={activeForm} />
+      </div>
+
+      <div>
+        <NavBarForMainForm />
       </div>
       < NavbarForMainForm
         mainFormName={mainFormName}
@@ -57,7 +60,6 @@ function App() {
         setActiveForm={setActiveForm}
       />
     </div>
-   
   );
 }
 
