@@ -3,7 +3,7 @@ import React from 'react'
 const title = () => {
   return (
     <div>
-        <h1>form</h1>
+        <h1>form{formName}</h1>
     </div>
   )
 }
