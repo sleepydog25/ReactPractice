@@ -1,9 +1,9 @@
 import React from 'react'
 
-const title = () => {
+const title = ({mainFormName}) => {
   return (
     <div>
-        <h1>form{formName}</h1>
+        <h1>form {mainFormName}</h1>
     </div>
   )
 }
