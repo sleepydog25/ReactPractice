@@ -4,7 +4,8 @@ import React, {useState} from "react";
 const NavbarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
   const [hoveredForm, setHoveredForm] = useState(null);
 
-  // 找到當前表單的索引
+  // find the index of the main Form
+  //this should be update to code review version
   const currentIndex = mainFormName.indexOf(activeForm);
 
   const handlePrevious = () => {
@@ -21,12 +22,12 @@ const NavbarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
 
   return (
     <div className="navBar">
- {/* 上一頁按鈕 */}
+ {/* previous page */}
  <button onClick={handlePrevious} disabled={currentIndex === 0}>
-        上一頁
+        Previous
       </button>
 
-      {/* 分頁按鈕 (顯示數字和懸浮提示) */}
+      {/* button for every mainForm (which page) */}
       {mainFormName.map((name, index) => (
         <button
           key={name}
@@ -38,12 +39,12 @@ const NavbarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
         </button>
       ))}
 
-      {/* 下一頁按鈕 */}
+      {/* next */}
       <button
         onClick={handleNext}
         disabled={currentIndex === mainFormName.length - 1}
       >
-        下一頁
+        Next
       </button>
     </div>
   );
