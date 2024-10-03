@@ -1,38 +1,52 @@
-import React,{useState} from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
-import FormPersonalInfo from "./FormPersonalInfo.js";
-import FormOrders from "./FormOrders.js";
-import FormOverview from "./FormOverview.js";
-import NavBarForForm from "./NavBarForForm.js";
+import MainForm from "./MainForm.js";
 
 function App() {
-  const [activeForm, setActiveForm] = useState("");
+  const [activeForm, setActiveForm] = useState(mainFormName[0]);
 
-  //name of the forms 
-  const mainFormName  = ["A0000001","A0000002","A0000003","A0000004","A0000005"];
+  //name of the forms
+  const mainFormName = [
+    "A0000001",
+    "A0000002",
+    "A0000003",
+    "A0000004",
+    "A0000005",
+  ];
 
   //count the numbers of mainForm
-  const totalForm = 0;
+  const totalForm = mainFormName.length;
 
   const mainFormChange = (e) => {
     setActiveForm(e.target.value);
   };
 
-
   return (
     <div className="theFirstDiv">
-      <Title  mainFormName={activeForm}/>
-      <p>跳至{formName} ，共 張</p>
+      <Title mainFormName={activeForm} />
+      <div>
+        跳至
+        <select
+          value={activeForm}
+          onChange={(e) => setActiveForm(e.target.value)}
+        >
+          {mainFormName.map((name) => (
+            <option key={name} name={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+        共 {totalForm} 頁
+      </div>
       <div className="button">
         <Button text="Log this form" color="Blue" />
         <Button text="Log all forms" color="Teal" />
         <Button text="Delete this form" color="Red" />
       </div>
-      <div className="bigForm">
-
+      <div className="mainForm">
+        <MainForm formName={activeForm}/>
       </div>
     </div>
   );
