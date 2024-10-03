@@ -4,17 +4,9 @@ import React from "react";
 const NavBarForForm = ({ link, text }) => {
   return (
     <nav>
-      <ul>
-        <li>
-          <Link to="/FormPersonalInfo">Personal Info</Link>
-        </li>
-        <li>
-          <Link to="/FormOrders">Orders</Link>
-        </li>
-        <li>
-          <Link to="/FormOverview">Overview</Link>
-        </li>
-      </ul>
+      <Link to="/FormPersonalInfo">Personal Info</Link>
+      <Link to="/FormOrders">Orders</Link>
+      <Link to="/FormOverview">Overview</Link>
     </nav>
   );
 };

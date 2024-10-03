@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
 import MainForm from "./MainForm.js";
 
 function App() {
-  const [activeForm, setActiveForm] = useState(mainFormName[0]);
-
   //name of the forms
   const mainFormName = [
     "A0000001",
@@ -15,6 +14,8 @@ function App() {
     "A0000004",
     "A0000005",
   ];
+
+  const [activeForm, setActiveForm] = useState(mainFormName[0]);
 
   //count the numbers of mainForm
   const totalForm = mainFormName.length;
