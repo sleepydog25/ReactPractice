@@ -10,8 +10,7 @@ const MainForm = ({ formName }) => {
     <div>
       <NavBarForForm />
       <Routes>
-        {/* for people didn't type the right url */}
-        <Route path="/" element={<FormPersonalInfo />} />
+        <Route path="/" element={<FormPersonalInfo />} />{/* for people didn't type the right url */}
         <Route path="/FormPersonalInfo" element={<FormPersonalInfo />} />
         <Route path="/FormOrders" element={<FormOrders />} />
         <Route path="/FormOverview" element={<FormOverview />} />

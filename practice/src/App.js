@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as  Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <Router>
+    
     <div className="theFirstDiv">
       <Title mainFormName={activeForm} />
       <div>
@@ -51,7 +51,7 @@ function App() {
         <MainForm formName={activeForm}/>
       </div>
     </div>
-    </Router>
+   
   );
 }
 
