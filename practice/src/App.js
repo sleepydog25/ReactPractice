@@ -4,6 +4,7 @@ import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
 import MainForm from "./MainForm.js";
+import NavbarForMainForm from "./NavBarForMainForm.js";
 
 function App() {
   //name of the forms
@@ -50,6 +51,11 @@ function App() {
       <div className="mainForm">
         <MainForm formName={activeForm}/>
       </div>
+      < NavbarForMainForm
+        mainFormName={mainFormName}
+        activeForm={activeForm}
+        setActiveForm={setActiveForm}
+      />
     </div>
    
   );

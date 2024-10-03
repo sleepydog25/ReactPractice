@@ -8,4 +8,4 @@ const title = ({mainFormName}) => {
   )
 }
 
-export default title
+export default title;
