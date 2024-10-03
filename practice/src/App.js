@@ -24,7 +24,7 @@ function App() {
     setActiveForm(e.target.value);
   };
 
-  return (
+  return ( 
     
     <div className="theFirstDiv">
       <Title mainFormName={activeForm} />
