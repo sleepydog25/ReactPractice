@@ -119,10 +119,11 @@ function App() {
   const [activeForm, setActiveForm] = useState(fakeMainForName[0]); // set the first APi fake data
   // const [apiData, setApiData] = useState([]);
   const [data, setData] = useState(null);
+  const[forms, setForms] = useState(fake);
 
   useEffect(() =>{
     setData(fake.find((form)=> form.id === activeForm));
-  },[activeForm]);
+  },[activeForm,forms]);
 
 
   //the code review
@@ -130,6 +131,28 @@ function App() {
   // useEffect(() => {
   //   apiData = formAPI();
   // }, []);
+
+  //log this form
+  const logThisForm =() =>{
+    console.log(data);
+  };
+
+  // log all form 
+  const logAllForms = () =>{
+    console.log(forms);
+  };
+
+  //Delete this form
+  const deleteThisForm = () =>{
+    const updatedForms = forms.filter((form) => form.id !== activeForm);
+    setActiveForm(updatedForms);
+
+    if(updatedForms.length > 0){
+      setActiveForm(updatedForms[0].id);
+    }else{
+      setData(null);
+    }
+  };
 
   return (
     <div className="theFirstDiv">
@@ -146,9 +169,9 @@ function App() {
         共 {fakeMainForName.length} 頁
       </div>
       <div className="button">
-        <Button text="Log this form" color="Blue" />
-        <Button text="Log all forms" color="Teal" />
-        <Button text="Delete this form" color="Red" />
+        <Button text="Log this form" color="Blue" onClick={logThisForm}/>
+        <Button text="Log all forms" color="Teal" onClick={logAllForms}/>
+        <Button text="Delete this form" color="Red" onClick={deleteThisForm}/>
       </div>
       <div className="mainForm">
         {data && <MainForm data={data} />}
