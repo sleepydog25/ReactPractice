@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Title from "./Title.js";
 import Button from "./Button.js";
@@ -97,34 +96,13 @@ const fake = [
 const fakeMainForName = fake.map((form) => form.id);
 
 function App() {
-  // the original version should be deleted later
-  //name of the forms
-  // const mainFormName = [
-  //   "A0000001",
-  //   "A0000002",
-  //   "A0000003",
-  //   "A0000004",
-  //   "A0000005",
-  // ];
-
-  // const [activeForm, setActiveForm] = useState(mainFormName[0]);
-
-  //count the numbers of mainForm
-  // const totalForm = mainFormName.length;
-
-  // const mainFormChange = (e) => {
-  //   setActiveForm(e.target.value);
-  // };
-
   const [activeForm, setActiveForm] = useState(fakeMainForName[0]); // set the first APi fake data
-  // const [apiData, setApiData] = useState([]);
   const [data, setData] = useState(null);
-  const[forms, setForms] = useState(fake);
+  const [forms, setForms] = useState(fake);
 
-  useEffect(() =>{
-    setData(fake.find((form)=> form.id === activeForm));
-  },[activeForm,forms]);
-
+  useEffect(() => {
+    setData(fake.find((form) => form.id === activeForm));
+  }, [activeForm, forms]);
 
   //the code review
   // const [data, setData] = useState(apiData[0]);
@@ -133,29 +111,41 @@ function App() {
   // }, []);
 
   //log this form
-  const logThisForm =() =>{
+  const logThisForm = () => {
     console.log(data);
   };
 
-  // log all form 
-  const logAllForms = () =>{
+  // log all form
+  const logAllForms = () => {
     console.log(forms);
   };
 
   //Delete this form
-  const deleteThisForm = () =>{
+  const deleteThisForm = () => {
     const updatedForms = forms.filter((form) => form.id !== activeForm);
     setActiveForm(updatedForms);
 
-    if(updatedForms.length > 0){
+    if (updatedForms.length > 0) {
       setActiveForm(updatedForms[0].id);
-    }else{
+    } else {
       setData(null);
     }
   };
 
-  const theFirstDiv ={
-    margin:"10px 10px 10px 10px"
+  // the css zone
+  const theFirstDiv = {
+    margin: "10px 10px 10px 10px",
+  };
+
+  const mainPageButtonSytle={
+    outline: "none",
+    border:"none",
+    color:"white"
+  };
+
+  const fieldsetStyle={
+    margin:"10px 0 10px 0"
+
   };
 
   return (
@@ -167,20 +157,35 @@ function App() {
           value={activeForm}
           onChange={(e) => setActiveForm(e.target.value)}
         >
-
-          {fakeMainForName.map((name) => (<option key={name} value={name}>{name}</option>))}
+          {fakeMainForName.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
         </select>
         ，共 {fakeMainForName.length} 張
       </div>
       <div className="button">
-        <Button text="Log this form" color="#007bff" onClick={logThisForm}/>
-        <Button text="Log all forms" color="#17a2b8" onClick={logAllForms}/>
-        <Button text="Delete this form" color="#dc3545" onClick={deleteThisForm}/>
-      </div>
-      <div className="mainForm">
-        {data && <MainForm data={data} />}
+        <Button
+          text="Log this form"
+          color="#007bff"
+          onClick={logThisForm}
+        />
+        <Button
+          text="Log all forms"
+          color="#17a2b8"
+          onClick={logAllForms}
+        />
+        <Button
+          text="Delete this form"
+          color="#dc3545"
+          onClick={deleteThisForm}
+        />
       </div>
 
+      <fieldset style={fieldsetStyle}>
+        <div className="mainForm">{data && <MainForm data={data} />}</div>
+      </fieldset>
 
       <NavbarForMainForm
         mainFormName={fakeMainForName}

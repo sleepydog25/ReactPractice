@@ -52,17 +52,6 @@ const FormOrders = ({orders}) => {
     { id: "herbal_cream", label: "百草膏" },
   ];
 
-  // the old version should be deleted soon
-  //store apple count into localStorage
-  // useEffect(() => {
-  //   localStorage.setItem("appleValue", count);
-  // }, [count]);
-
-  //store toppings in localStorage
-  // useEffect(() => {
-  //   localStorage.setItem("selectedToppings", JSON.stringify(selectedToppings));
-  // }, [selectedToppings]);
-
   return (
     <div>
       <section>

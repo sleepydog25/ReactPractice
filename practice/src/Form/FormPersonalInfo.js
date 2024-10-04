@@ -1,78 +1,35 @@
 import React, { useState, useEffect } from "react";
 
-const FormPersonalInfo = ({personalinfo}) => {
-  // if user input Name, then Name will appear,if there is noting in local storage retrun""
-  // const [firstNameValue, setFirstNameValue] = useState(() => {
-  //   return localStorage.getItem("firstName") || "";
-  // });
-  // const [lastNameValue, setLastNameValue] = useState(() => {
-  //   return localStorage.getItem("lastName") || "";
-  // });
+const FormPersonalInfo = ({ personalinfo }) => {
 
-  const[firstNameValue, setFirstNameValue] = useState("");
+  const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
   const [addressValue, setAddressValue] = useState(""); // follow address value
   const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
   const [textValue, setTextValue] = useState(""); // follow the textarea
   const maxLength = 2000;
 
-  //when first name change, update first name
-  // const firstNameChange = (e) => {
-  //   setFirstNameValue(e.target.value);
-  // };
+  useEffect(() => {
+    if (personalinfo) {
+      setFirstNameValue(personalinfo.first_name || "unknown");
+      setLastNameValue(personalinfo.last_name || "unknown");
+      setAddressValue(personalinfo.address || "");
+      setNoHouseChecked(personalinfo.is_homeless || false);
+      setTextValue(personalinfo.note || "");
+    }
+  }, [personalinfo]);
 
-  //when last name change, update last name
-  // const lastNameChange = (e) => {
-  //   setLastNameValue(e.target.value);
-  // };
-
-  //when address checkbox triggers,clear the address input
-  // const checkboxChange = (e) => {
-  //   setNoHouseChecked(e.target.checked);
-  //   if (e.target.checked) {
-  //     setAddressValue("");
-  //   }
-  // };
-
-  // update address input
-  // const addressChange = (e) => {
-  //   setAddressValue(e.target.value);
-  // };
-
-  //update textarea input
-  // const textChange = (e) => {
-  //   setTextValue(e.target.value);
-  // };
-  // const remainingWords = maxLength - textValue.length;
-
-  //store name into local stroage for FormOverview
-  // useEffect(() => {
-  //   localStorage.setItem("firstName", firstNameValue);
-  // }, [firstNameValue]);
-  // useEffect(() => {
-  //   localStorage.setItem("lastName", lastNameValue);
-  // }, [lastNameValue]);
-
-useEffect(() => {
-  if(personalinfo){
-    setFirstNameValue(personalinfo.first_name ||"unknown");
-    setLastNameValue(personalinfo.last_name || "unknown");
-    setAddressValue(personalinfo.address || "");
-    setNoHouseChecked(personalinfo.is_homeless || false);
-    setTextValue(personalinfo.note || "");
-  }
-},[personalinfo]);
-
-const firstNameChange = (e) => setFirstNameValue(e.target.value);
-const lastNameChange = (e) => setLastNameValue(e.target.value);
-const addressChange = (e) => setAddressValue(e.target.value);
-const checkboxChange = (e) => {setNoHouseChecked(e.target.checked);
-  if(e.target.checked){
-    setAddressValue("");
-  }
-};
-const textChange = (e) => setTextValue(e.target.value);
-const remainingWords = maxLength - textValue.length;
+  const firstNameChange = (e) => setFirstNameValue(e.target.value);
+  const lastNameChange = (e) => setLastNameValue(e.target.value);
+  const addressChange = (e) => setAddressValue(e.target.value);
+  const checkboxChange = (e) => {
+    setNoHouseChecked(e.target.checked);
+    if (e.target.checked) {
+      setAddressValue("");
+    }
+  };
+  const textChange = (e) => setTextValue(e.target.value);
+  const remainingWords = maxLength - textValue.length;
 
   // save name to localStorage (?)
   // useEffect(() => {
@@ -114,13 +71,31 @@ const remainingWords = maxLength - textValue.length;
         <section className="gender">
           <label htmlFor="gender">Gender</label>
           <br />
-          <input type="radio" id="Secret" name="gender" value="0" checked={personalinfo.gender === 0} />
+          <input
+            type="radio"
+            id="Secret"
+            name="gender"
+            value="0"
+            checked={personalinfo.gender === 0}
+          />
           <label htmlFor="Secret">Secret</label>
           <br />
-          <input type="radio" id="Female" name="gender" value="1" checked={personalinfo.gender === 1}/>
+          <input
+            type="radio"
+            id="Female"
+            name="gender"
+            value="1"
+            checked={personalinfo.gender === 1}
+          />
           <label htmlFor="Female">Female</label>
           <br />
-          <input type="radio" id="Male" name="gender" value="2" checked={personalinfo.gender === 2}/>
+          <input
+            type="radio"
+            id="Male"
+            name="gender"
+            value="2"
+            checked={personalinfo.gender === 2}
+          />
           <label htmlFor="Male">Male</label>
           <br />
         </section>
