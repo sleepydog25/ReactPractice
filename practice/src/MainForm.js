@@ -13,7 +13,7 @@ const MainForm = ({ data }) => {
   return (
     <div>
       <Button onClick={() => setTab("FormPersonalInfo")}>Personal Info</Button>
-      <Button onClick={() => setTab("Orders")}>Order</Button>
+      <Button onClick={() => setTab("FormOrders")}>Order</Button>
       <Button onClick={() => setTab("FormOverview")}>Overview</Button>
       {tab === "FormPersonalInfo" && (
         <FormPersonalInfo personalinfo={data.personal_info} />
