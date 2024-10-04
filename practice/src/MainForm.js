@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import FormPersonalInfo from "./FormPersonalInfo.js";
-import FormOrders from "./FormOrders.js";
-import FormOverview from "./FormOverview.js";
-import NavBarForForm from "./NavBarForForm.js";
+import FormPersonalInfo from "./Form/FormPersonalInfo.js";
+import FormOrders from "./Form/FormOrders.js";
+import FormOverview from "./Form/FormOverview.js";
 import Button from "./Button.js";
 
 
