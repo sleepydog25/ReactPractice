@@ -154,8 +154,12 @@ function App() {
     }
   };
 
+  const theFirstDiv ={
+    margin:"10px 10px 10px 10px"
+  };
+
   return (
-    <div className="theFirstDiv">
+    <div style={theFirstDiv}>
       <Title mainFormName={activeForm} />
       <div>
         跳至
@@ -166,12 +170,12 @@ function App() {
 
           {fakeMainForName.map((name) => (<option key={name} value={name}>{name}</option>))}
         </select>
-        共 {fakeMainForName.length} 頁
+        ，共 {fakeMainForName.length} 張
       </div>
       <div className="button">
-        <Button text="Log this form" color="Blue" onClick={logThisForm}/>
-        <Button text="Log all forms" color="Teal" onClick={logAllForms}/>
-        <Button text="Delete this form" color="Red" onClick={deleteThisForm}/>
+        <Button text="Log this form" color="#007bff" onClick={logThisForm}/>
+        <Button text="Log all forms" color="#17a2b8" onClick={logAllForms}/>
+        <Button text="Delete this form" color="#dc3545" onClick={deleteThisForm}/>
       </div>
       <div className="mainForm">
         {data && <MainForm data={data} />}
