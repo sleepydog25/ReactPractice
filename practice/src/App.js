@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Title from "./Title.js";
@@ -6,24 +6,29 @@ import Button from "./Button.js";
 import MainForm from "./MainForm.js";
 import NavbarForMainForm from "./NavBarForMainForm.js";
 
+const fakeMainForName = fake.reduce((acc,cur) => {return acc.concat(cur.id),[]});
+
 function App() {
   //name of the forms
-  const mainFormName = [
-    "A0000001",
-    "A0000002",
-    "A0000003",
-    "A0000004",
-    "A0000005",
-  ];
+  // const mainFormName = [
+  //   "A0000001",
+  //   "A0000002",
+  //   "A0000003",
+  //   "A0000004",
+  //   "A0000005",
+  // ];
 
-  const [activeForm, setActiveForm] = useState(mainFormName[0]);
+  // const [activeForm, setActiveForm] = useState(mainFormName[0]);
 
   //count the numbers of mainForm
-  const totalForm = mainFormName.length;
+  // const totalForm = mainFormName.length;
 
-  const mainFormChange = (e) => {
-    setActiveForm(e.target.value);
-  };
+  // const mainFormChange = (e) => {
+  //   setActiveForm(e.target.value);
+  // };
+
+  const [data, setData] = useState(apiData[0]);
+  useEffect(() =>{apiData = formAPI()},[])
 
   return (
     <div className="theFirstDiv">
@@ -48,7 +53,7 @@ function App() {
         <Button text="Delete this form" color="Red" />
       </div>
       <div className="mainForm">
-        <MainForm formName={activeForm} />
+        <MainForm data={data} />
       </div>
 
       <div>
