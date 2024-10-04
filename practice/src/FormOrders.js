@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 
-const FormOrders = () => {
+const FormOrders = ({orders}) => {
+
+// initialize apple count
+  const[count, setCount] = useState(orders?.apple_count||0);
+
+  // initialize banana toppings
+  const [selectedToppings, setSelectedToppings] = useState(orders?.banana_condiments||[]);
+
+  //the old version should be deleted lateer
   // find appleValue in localstorage or return 0
-  const [count, setCount] = useState(() => {
-    const storedAppleValue = localStorage.getItem("appleValue");
-    return storedAppleValue ? Number(storedAppleValue) : 0;
-  });
+  // const [count, setCount] = useState(() => {
+  //   const storedAppleValue = localStorage.getItem("appleValue");
+  //   return storedAppleValue ? Number(storedAppleValue) : 0;
+  // });
 
   //find toppings in localstorage or return an empty array
-  const [selectedToppings, setSelectedToppings] = useState(() => {
-    const storedToppings = localStorage.getItem("selectedToppings");
-    return storedToppings ? JSON.parse(storedToppings) : [];
-  });
+  // const [selectedToppings, setSelectedToppings] = useState(() => {
+  //   const storedToppings = localStorage.getItem("selectedToppings");
+  //   return storedToppings ? JSON.parse(storedToppings) : [];
+  // });
 
   //count the apple
   const updateCount = (amount) => {
@@ -44,15 +52,16 @@ const FormOrders = () => {
     { id: "herbal_cream", label: "百草膏" },
   ];
 
+  // the old version should be deleted soon
   //store apple count into localStorage
-  useEffect(() => {
-    localStorage.setItem("appleValue", count);
-  }, [count]);
+  // useEffect(() => {
+  //   localStorage.setItem("appleValue", count);
+  // }, [count]);
 
   //store toppings in localStorage
-  useEffect(() => {
-    localStorage.setItem("selectedToppings", JSON.stringify(selectedToppings));
-  }, [selectedToppings]);
+  // useEffect(() => {
+  //   localStorage.setItem("selectedToppings", JSON.stringify(selectedToppings));
+  // }, [selectedToppings]);
 
   return (
     <div>

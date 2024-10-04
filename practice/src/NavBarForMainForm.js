@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 
 
-const NavbarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
-  const [hoveredForm, setHoveredForm] = useState(null);
-
+const NavBarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
   // find the index of the main Form
   //this should be update to code review version
   const currentIndex = mainFormName.indexOf(activeForm);
@@ -50,4 +48,4 @@ const NavbarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
   );
 };
 
-export default NavbarForMainForm;
+export default NavBarForMainForm;

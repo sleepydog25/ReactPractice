@@ -1,56 +1,86 @@
 import React, { useState, useEffect } from "react";
 
-const FormPersonalInfo = () => {
+const FormPersonalInfo = ({personalinfo}) => {
   // if user input Name, then Name will appear,if there is noting in local storage retrun""
-  const [firstNameValue, setFirstNameValue] = useState(() => {
-    return localStorage.getItem("firstName") || "";
-  });
-  const [lastNameValue, setLastNameValue] = useState(() => {
-    return localStorage.getItem("lastName") || "";
-  });
+  // const [firstNameValue, setFirstNameValue] = useState(() => {
+  //   return localStorage.getItem("firstName") || "";
+  // });
+  // const [lastNameValue, setLastNameValue] = useState(() => {
+  //   return localStorage.getItem("lastName") || "";
+  // });
 
+  const[firstNameValue, setFirstNameValue] = useState("");
+  const [lastNameValue, setLastNameValue] = useState("");
   const [addressValue, setAddressValue] = useState(""); // follow address value
   const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
   const [textValue, setTextValue] = useState(""); // follow the textarea
   const maxLength = 2000;
 
   //when first name change, update first name
-  const firstNameChange = (e) => {
-    setFirstNameValue(e.target.value);
-  };
+  // const firstNameChange = (e) => {
+  //   setFirstNameValue(e.target.value);
+  // };
 
   //when last name change, update last name
-  const lastNameChange = (e) => {
-    setLastNameValue(e.target.value);
-  };
+  // const lastNameChange = (e) => {
+  //   setLastNameValue(e.target.value);
+  // };
 
   //when address checkbox triggers,clear the address input
-  const checkboxChange = (e) => {
-    setNoHouseChecked(e.target.checked);
-    if (e.target.checked) {
-      setAddressValue("");
-    }
-  };
+  // const checkboxChange = (e) => {
+  //   setNoHouseChecked(e.target.checked);
+  //   if (e.target.checked) {
+  //     setAddressValue("");
+  //   }
+  // };
 
   // update address input
-  const addressChange = (e) => {
-    setAddressValue(e.target.value);
-  };
+  // const addressChange = (e) => {
+  //   setAddressValue(e.target.value);
+  // };
 
   //update textarea input
-  const textChange = (e) => {
-    setTextValue(e.target.value);
-  };
-  const remainingWords = maxLength - textValue.length;
+  // const textChange = (e) => {
+  //   setTextValue(e.target.value);
+  // };
+  // const remainingWords = maxLength - textValue.length;
 
   //store name into local stroage for FormOverview
-  useEffect(() => {
-    localStorage.setItem("firstName", firstNameValue);
-  }, [firstNameValue]);
-  useEffect(() => {
-    localStorage.setItem("lastName", lastNameValue);
-  }, [lastNameValue]);
+  // useEffect(() => {
+  //   localStorage.setItem("firstName", firstNameValue);
+  // }, [firstNameValue]);
+  // useEffect(() => {
+  //   localStorage.setItem("lastName", lastNameValue);
+  // }, [lastNameValue]);
 
+useEffect(() => {
+  if(personalinfo){
+    setFirstNameValue(personalinfo.first_name ||"unknown");
+    setLastNameValue(personalinfo.last_name || "unknown");
+    setAddressValue(personalinfo.address || "");
+    setNoHouseChecked(personalinfo.is_homeless || false);
+    setTextValue(personalinfo.note || "");
+  }
+},[personalinfo]);
+
+const firstNameChange = (e) => setFirstNameValue(e.target.value);
+const lastNameChange = (e) => setLastNameValue(e.target.value);
+const addressChange = (e) => setAddressValue(e.target.value);
+const checkboxChange = (e) => {setNoHouseChecked(e.target.checked);
+  if(e.target.checked){
+    setAddressValue("");
+  }
+};
+const textChange = (e) => setTextValue(e.target.value);
+const remainingWords = maxLength - textValue.length;
+
+  // save name to localStorage (?)
+  // useEffect(() => {
+  //   localStorage.setItem("firstName", firstNameValue);
+  // }, [firstNameValue]);
+  // useEffect(() => {
+  //   localStorage.setItem("lastName", lastNameValue);
+  // }, [lastNameValue]);
 
   return (
     <div>
@@ -84,13 +114,13 @@ const FormPersonalInfo = () => {
         <section className="gender">
           <label htmlFor="gender">Gender</label>
           <br />
-          <input type="radio" id="Secret" name="gender" value="0" checked />
+          <input type="radio" id="Secret" name="gender" value="0" checked={personalinfo.gender === 0} />
           <label htmlFor="Secret">Secret</label>
           <br />
-          <input type="radio" id="Female" name="gender" value="1" />
+          <input type="radio" id="Female" name="gender" value="1" checked={personalinfo.gender === 1}/>
           <label htmlFor="Female">Female</label>
           <br />
-          <input type="radio" id="Male" name="gender" value="2" />
+          <input type="radio" id="Male" name="gender" value="2" checked={personalinfo.gender === 2}/>
           <label htmlFor="Male">Male</label>
           <br />
         </section>
@@ -122,7 +152,7 @@ const FormPersonalInfo = () => {
         <section>
           <label htmlFor="job">Job</label>
           <br />
-          <select>
+          <select value={personalinfo?.job || "null"}>
             <option value="null">保密</option>
             <option value="agent">調查員</option>
             <option value="sercet_agent">秘密調查員</option>

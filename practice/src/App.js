@@ -6,9 +6,98 @@ import Button from "./Button.js";
 import MainForm from "./MainForm.js";
 import NavbarForMainForm from "./NavBarForMainForm.js";
 
-const fakeMainForName = fake.reduce((acc,cur) => {return acc.concat(cur.id),[]});
+const fake = [
+  {
+    id: "A0000001",
+    personal_info: {
+      first_name: "Fishman",
+      last_name: "ILike",
+      gender: 1,
+      address: "ABCDEFG",
+      is_homeless: false,
+      job: null,
+      note: null,
+    },
+    orders: {
+      apple_count: 1,
+      banana_condiments: ["chocolate", "chili", "garlic", "soy_sauce"],
+    },
+  },
+  {
+    id: "A0000002",
+    personal_info: {
+      first_name: null,
+      last_name: "Somebody",
+      gender: 2,
+      address: "QWERTY",
+      is_homeless: false,
+      job: "secret_agent",
+      note: "Hello, world",
+    },
+    orders: { apple_count: 15, banana_condiments: [] },
+  },
+  {
+    id: "A0000003",
+    personal_info: {
+      first_name: "Painter",
+      last_name: null,
+      gender: 0,
+      address: null,
+      is_homeless: true,
+      job: "agent_of_secret_agent",
+      note: "Strange",
+    },
+    orders: { apple_count: 1, banana_condiments: ["herbal_cream"] },
+  },
+  {
+    id: "A0000004",
+    personal_info: {
+      first_name: "President",
+      last_name: "Mr.",
+      gender: 1,
+      address: "America",
+      is_homeless: false,
+      job: "secret_agent",
+      note: "He is the president!",
+    },
+    orders: {
+      apple_count: 100,
+      banana_condiments: [
+        "chocolate",
+        "strawberry",
+        "flax",
+        "miso",
+        "chili",
+        "garlic",
+        "soy_sauce",
+        "thick_soy_sauce",
+      ],
+    },
+  },
+  {
+    id: "A0000005",
+    personal_info: {
+      first_name: "Pepper",
+      last_name: "Dr.",
+      gender: 0,
+      address: "Farm",
+      is_homeless: false,
+      job: "agent",
+      note: "胡椒博士現身",
+    },
+    orders: { apple_count: 5, banana_condiments: ["chili", "garlic"] },
+  },
+];
+
+// this is the code review version
+// const fakeMainForName = fake.reduce((acc, cur) => {
+//   return acc.concat(cur.id), [];
+// });
+
+const fakeMainForName = fake.map((form) => form.id);
 
 function App() {
+  // the original version should be deleted later
   //name of the forms
   // const mainFormName = [
   //   "A0000001",
@@ -27,8 +116,20 @@ function App() {
   //   setActiveForm(e.target.value);
   // };
 
-  const [data, setData] = useState(apiData[0]);
-  useEffect(() =>{apiData = formAPI()},[])
+  const [activeForm, setActiveForm] = useState(fakeMainForName[0]); // set the first APi fake data
+  // const [apiData, setApiData] = useState([]);
+  const [data, setData] = useState(null);
+
+  useEffect(() =>{
+    setData(fake.find((form)=> form.id === activeForm));
+  },[activeForm]);
+
+
+  //the code review
+  // const [data, setData] = useState(apiData[0]);
+  // useEffect(() => {
+  //   apiData = formAPI();
+  // }, []);
 
   return (
     <div className="theFirstDiv">
@@ -39,13 +140,10 @@ function App() {
           value={activeForm}
           onChange={(e) => setActiveForm(e.target.value)}
         >
-          {mainFormName.map((name) => (
-            <option key={name} name={name}>
-              {name}
-            </option>
-          ))}
+
+          {fakeMainForName.map((name) => (<option key={name} value={name}>{name}</option>))}
         </select>
-        共 {totalForm} 頁
+        共 {fakeMainForName.length} 頁
       </div>
       <div className="button">
         <Button text="Log this form" color="Blue" />
@@ -53,14 +151,12 @@ function App() {
         <Button text="Delete this form" color="Red" />
       </div>
       <div className="mainForm">
-        <MainForm data={data} />
+        {data && <MainForm data={data} />}
       </div>
 
-      <div>
-        <NavBarForMainForm />
-      </div>
-      < NavbarForMainForm
-        mainFormName={mainFormName}
+
+      <NavbarForMainForm
+        mainFormName={fakeMainForName}
         activeForm={activeForm}
         setActiveForm={setActiveForm}
       />
