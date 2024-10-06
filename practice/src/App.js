@@ -137,15 +137,8 @@ function App() {
     margin: "10px 10px 10px 10px",
   };
 
-  const mainPageButtonSytle={
-    outline: "none",
-    border:"none",
-    color:"white"
-  };
-
-  const fieldsetStyle={
-    margin:"10px 0 10px 0"
-
+  const fieldsetStyle = {
+    margin: "10px 0 10px 0",
   };
 
   return (
@@ -166,21 +159,15 @@ function App() {
         ，共 {fakeMainForName.length} 張
       </div>
       <div className="button">
-        <Button
-          text="Log this form"
-          color="#007bff"
-          onClick={logThisForm}
-        />
-        <Button
-          text="Log all forms"
-          color="#17a2b8"
-          onClick={logAllForms}
-        />
-        <Button
-          text="Delete this form"
-          color="#dc3545"
-          onClick={deleteThisForm}
-        />
+        <Button color="#007bff" onClick={logThisForm}>
+          Log this form
+        </Button>
+        <Button color="#17a2b8" onClick={logAllForms}>
+          Log all forms
+        </Button>
+        <Button color="#dc3545" onClick={deleteThisForm}>
+          Delete this form
+        </Button>
       </div>
 
       <fieldset style={fieldsetStyle}>

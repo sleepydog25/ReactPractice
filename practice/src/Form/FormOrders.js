@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button";
 
-const FormOrders = ({orders}) => {
-
-// initialize apple count
-  const[count, setCount] = useState(orders?.apple_count||0);
+const FormOrders = ({ orders }) => {
+  // initialize apple count
+  const [count, setCount] = useState(orders?.apple_count || 0);
 
   // initialize banana toppings
-  const [selectedToppings, setSelectedToppings] = useState(orders?.banana_condiments||[]);
+  const [selectedToppings, setSelectedToppings] = useState(
+    orders?.banana_condiments || []
+  );
 
   //the old version should be deleted lateer
   // find appleValue in localstorage or return 0
@@ -56,11 +57,19 @@ const FormOrders = ({orders}) => {
     <div>
       <section>
         <label htmlFor="apple">Apple</label>
-        <Button text="-5" color="white" onClick={() => updateCount(-5)} />
-        <Button text="-1" color="white" onClick={() => updateCount(-1)} />
+        <Button color="white" onClick={() => updateCount(-5)}>
+          -5
+        </Button>
+        <Button color="white" onClick={() => updateCount(-1)}>
+          -1
+        </Button>
         <input type="number" id="apple" name="apple" value={count} disabled />
-        <Button text="+1" color="white" onClick={() => updateCount(1)} />
-        <Button text="+5" color="white" onClick={() => updateCount(5)} />
+        <Button color="white" onClick={() => updateCount(1)}>
+          +1
+        </Button>
+        <Button color="white" onClick={() => updateCount(5)}>
+          +5
+        </Button>
       </section>
 
       <br />
