@@ -92,7 +92,7 @@ const fake = [
 // loading for 2 second
 const fakeGetForms = async () => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(fake), 2000);
+    setTimeout(() => resolve(fake), 0);
   });
 };
 
@@ -109,7 +109,7 @@ function App() {
     fakeGetForms()
       .then((data) => {
         setForms(data); // Set fetched forms
-        setActiveFormId(data[0]?.id); // Set the first form as active
+        setActiveFormId(data[0]?.id); // Set the first form as activeForm
       })
       .catch((err) => {
         console.error("Error loading forms:", err);
@@ -119,7 +119,7 @@ function App() {
   if (forms.length === 0) {
     return (
       <div>
-        <Title mainFormName={activeFormId} />
+        <Title mainFormName={activeFormId} className="title" />
         <div>Loading ... </div>
       </div>
     );
@@ -144,7 +144,6 @@ function App() {
   };
 
   //delete form
-
   const deleteThisForm = () => {
     const updatedForms = forms.filter((form) => form.id !== activeFormId);
     setForms(updatedForms); // Update forms after deletion
@@ -153,20 +152,21 @@ function App() {
   if (!forms) {
     return (
       <div>
-        <Title mainFormName={activeFormId} />
+        <Title mainFormName={activeFormId} className="title" />
         <div>Loading ... </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <Title mainFormName={activeFormId} />
-      <div>
+    <div className="theFirstDiv">
+      <Title mainFormName={activeFormId} className="title" />
+      <div className="jumpToPage">
         跳至
         <select
           value={activeFormId}
           onChange={(e) => setActiveFormId(e.target.value)}
+          className="jumpToPageSelect"
         >
           {forms.map((form) => (
             <option key={form.id} value={form.id}>
@@ -176,19 +176,20 @@ function App() {
         </select>
         ，共 {forms.length} 張
       </div>
+
       <div className="button">
-        <Button color="#007bff" onClick={logThisForm}>
+        <Button color="#007bff" onClick={logThisForm} className="logButton">
           Log this form
         </Button>
-        <Button color="#17a2b8" onClick={logAllForms}>
+        <Button color="#17a2b8" onClick={logAllForms} className="logButton">
           Log all forms
         </Button>
-        <Button color="#dc3545" onClick={deleteThisForm}>
+        <Button color="#dc3545" onClick={deleteThisForm} className="logButton">
           Delete this form
         </Button>
       </div>
 
-      <fieldset>
+      <fieldset className="mainFormBorder">
         <div className="mainForm">
           {activeForm && (
             <MainForm data={forms.find((form) => form.id === activeFormId)} />

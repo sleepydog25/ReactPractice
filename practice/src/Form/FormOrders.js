@@ -41,41 +41,102 @@ const FormOrders = ({ orders, setOrders }) => {
     { id: "herbal_cream", label: "百草膏" },
   ];
 
+  // the apple css zone
+
+  const appleLableStyle = {
+    fontWeight: "bolder",
+    paddingRight: "0.5rem",
+  };
+  const appleButtonSytle = {
+    border: "1px solid #000000",
+    padding: "0 0.5rem 0 0.5rem",
+    margin: "0 0.1rem 0 0.1rem",
+  };
+
+  const appleInputStyle = {
+    border: "1px solid #000000",
+    margin: "0 0.5rem 0 0.5rem",
+  };
+
+  // the banana css zone
+  const bananaLabelStyle = {
+    fontWeight: "bolder",
+    paddingRight: "0.5rem",
+  };
+
+  const toppingsGroupStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "1 rem",
+  };
+
+  const toppingItemStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
   return (
     <div>
       <section>
-        <label htmlFor="apple">Apple</label>
-        <Button color="white" onClick={() => updateCount(-5)}>
+        <label htmlFor="apple" style={appleLableStyle}>
+          Apple
+        </label>
+        <Button
+          color="#e7e7e7"
+          onClick={() => updateCount(-5)}
+          styles={appleButtonSytle}
+        >
           -5
         </Button>
-        <Button color="white" onClick={() => updateCount(-1)}>
+        <Button
+          color="#e7e7e7"
+          onClick={() => updateCount(-1)}
+          styles={appleButtonSytle}
+        >
           -1
         </Button>
-        <input type="number" id="apple" name="apple" value={count} disabled />
-        <Button color="white" onClick={() => updateCount(1)}>
+        <input
+          type="number"
+          id="apple"
+          name="apple"
+          value={count}
+          disabled
+          style={appleInputStyle}
+        />
+        <Button
+          color="#e7e7e7"
+          onClick={() => updateCount(1)}
+          styles={appleButtonSytle}
+        >
           +1
         </Button>
-        <Button color="white" onClick={() => updateCount(5)}>
+        <Button
+          color="#e7e7e7"
+          onClick={() => updateCount(5)}
+          styles={appleButtonSytle}
+        >
           +5
         </Button>
       </section>
 
       <br />
       <section>
-        <h3>banana</h3>
+        <h3 style={bananaLabelStyle}>Banana</h3>
         <label htmlFor="toppings">配料</label>
         <br />
-        {toppings.map((topping) => (
-          <div key={topping.id}>
-            <input
-              type="checkbox"
-              id={topping.id}
-              checked={selectedToppings.includes(topping.id)}
-              onChange={CheckboxChange}
-            />
-            <label htmlFor={topping.id}>{topping.label}</label>
-          </div>
-        ))}
+        <div style={toppingsGroupStyle}>
+          {toppings.map((topping) => (
+            <div key={topping.id} style={toppingItemStyle}>
+              <input
+                type="checkbox"
+                id={topping.id}
+                checked={selectedToppings.includes(topping.id)}
+                onChange={CheckboxChange}
+              />
+              <label htmlFor={topping.id}>{topping.label}</label>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

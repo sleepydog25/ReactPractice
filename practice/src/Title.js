@@ -1,15 +1,9 @@
 import React from "react";
 
-const title = ({ mainFormName }) => {
-  const titleStyle = {
-    textDecoration: "underline",
-    marginTop: "10px",
-    marginBottom: "10px",
-  };
-
+const title = ({ mainFormName, className }) => {
   return (
     <div>
-      <h3 style={titleStyle}>Form {mainFormName}</h3>
+      <h3 className={className}>Form {mainFormName}</h3>
     </div>
   );
 };

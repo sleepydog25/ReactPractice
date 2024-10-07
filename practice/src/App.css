@@ -1,34 +1,32 @@
-.App {
-  text-align: center;
+.theFirstDiv {
+  margin: 1rem 1rem 1rem 1rem;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title {
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.jumpToPage {
+  margin-bottom: 0.5rem;
+}
+
+.jumpToPageSelect {
+  border: 1px solid #000000;
+}
+
+.button {
+  margin-bottom: 0.5rem;
+}
+
+.logButton {
   color: white;
+  padding: 0.5em;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mainFormBorder {
+  border: 1px solid grey;
+  padding: 0.5rem;
 }
