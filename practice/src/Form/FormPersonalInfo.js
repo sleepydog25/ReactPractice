@@ -26,6 +26,11 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
     setLastNameValue(e.target.value);
     setPersonalInfo((prev) => ({ ...prev, last_name: e.target.value }));
   };
+  // 要改成類似這樣，沒有 useState
+  // const lastNameChange = (e) => {
+  //   setLastNameValue(e.target.value);
+  //   setPersonalInfo([ ...prev, last_name: e.target.value ]);
+  // };
 
   const addressChange = (e) => {
     setAddressValue(e.target.value);
@@ -72,17 +77,13 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
   // this is the outermost gender div that contains the whole section
   const genderStyleRow = {
     display: "flex",
-    justifyContent: "flex-start",
-    flexDirection: "column",
-    alignItems: "flex-start",
+    flexDirection: "row",
     padding: "0.5rem 0rem 1rem 0rem",
   };
 
-  const genderStyleGroup = {};
-
   const genderLabelStyle = {
-    flexBasis: "20%",
-    textAlign: "right",
+    flexBasis: "20%ㄏ",
+    textAlign: "left",
     paddingRight: "1rem",
   };
 
@@ -145,6 +146,7 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
               id="lastName"
               name="lastName"
               value={lastNameValue}
+              // value={personalinfo.lastName||"unknown"} 要改成這樣
               onChange={lastNameChange}
               style={nameInputStyle}
               required
@@ -155,44 +157,42 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
         {/* gender section */}
         <section className="gender">
           <div style={genderStyleRow}>
-            <div style={genderStyleGroup}>
-              <label htmlFor="gender" style={genderLabelStyle}>
-                Gender
-              </label>
-              <div style={radioColumnStyle}>
-                <div style={radioOptionSytle}>
-                  <input
-                    type="radio"
-                    id="Secret"
-                    name="gender"
-                    value="0"
-                    checked={personalinfo.gender === 0}
-                  />
-                  <label htmlFor="Secret">Secret</label>
-                </div>
+            <label htmlFor="gender" style={genderLabelStyle}>
+              Gender
+            </label>
+            <div style={radioColumnStyle}>
+              <div style={radioOptionSytle}>
+                <input
+                  type="radio"
+                  id="Secret"
+                  name="gender"
+                  value="0"
+                  checked={personalinfo.gender === 0}
+                />
+                <label htmlFor="Secret">Secret</label>
+              </div>
 
-                <div style={radioOptionSytle}>
-                  <br />
-                  <input
-                    type="radio"
-                    id="Female"
-                    name="gender"
-                    value="1"
-                    checked={personalinfo.gender === 1}
-                  />
-                  <label htmlFor="Female">Female</label>
-                </div>
-                <div style={radioOptionSytle}>
-                  <br />
-                  <input
-                    type="radio"
-                    id="Male"
-                    name="gender"
-                    value="2"
-                    checked={personalinfo.gender === 2}
-                  />
-                  <label htmlFor="Male">Male</label>
-                </div>
+              <div style={radioOptionSytle}>
+                <br />
+                <input
+                  type="radio"
+                  id="Female"
+                  name="gender"
+                  value="1"
+                  checked={personalinfo.gender === 1}
+                />
+                <label htmlFor="Female">Female</label>
+              </div>
+              <div style={radioOptionSytle}>
+                <br />
+                <input
+                  type="radio"
+                  id="Male"
+                  name="gender"
+                  value="2"
+                  checked={personalinfo.gender === 2}
+                />
+                <label htmlFor="Male">Male</label>
               </div>
             </div>
           </div>

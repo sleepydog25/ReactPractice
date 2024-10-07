@@ -3,6 +3,7 @@ import FormPersonalInfo from "./Form/FormPersonalInfo.js";
 import FormOrders from "./Form/FormOrders.js";
 import FormOverview from "./Form/FormOverview.js";
 import Button from "./Button.js";
+import "./MainForm.css";
 
 const MainForm = ({ data, updateFormData }) => {
   const [tab, setTab] = useState("FormPersonalInfo");
@@ -34,26 +35,50 @@ const MainForm = ({ data, updateFormData }) => {
   console.log("current personalInfo :", personalInfo);
   console.log("current orders :", orders);
 
+  // the tailwind zone
+  const getTabClass = (currentTab) => {
+    return tab === currentTab
+      ? "text-black border-b-2 border-black"
+      : "text-blue-500";
+  };
+
   return (
-    <div>
-      <Button onClick={() => setTab("FormPersonalInfo")}>Personal Info</Button>
-      <Button onClick={() => setTab("FormOrders")}>Order</Button>
-      <Button onClick={() => setTab("FormOverview")}>Overview</Button>
+    <div className="mb-4">
+      <div className="flex space-x-4 mb-4">
+        <Button
+          onClick={() => setTab("FormPersonalInfo")}
+          className={`tab-button ${getTabClass("FormPersonalInfo")}`}
+        >
+          Personal Info
+        </Button>
+        <Button
+          onClick={() => setTab("FormOrders")}
+          className={`tab-button ${getTabClass("FormOrders")}`}
+        >
+          Order
+        </Button>
+        <Button
+          onClick={() => setTab("FormOverview")}
+          className={`tab-button ${getTabClass("FormOverview")}`}
+        >
+          Overview
+        </Button>
 
-      {tab === "FormPersonalInfo" && (
-        <FormPersonalInfo
-          personalinfo={personalInfo}
-          setPersonalInfo={handlePersonalInfoUpdate}
-        />
-      )}
+        {tab === "FormPersonalInfo" && (
+          <FormPersonalInfo
+            personalinfo={personalInfo}
+            handlePersonalInfo={handlePersonalInfoUpdate} // 改名字，因為參數裡面傳入其他邏輯，下面的orders 也要改
+          />
+        )}
 
-      {tab === "FormOrders" && (
-        <FormOrders orders={orders} setOrders={handleOrdersUpdate} />
-      )}
+        {tab === "FormOrders" && (
+          <FormOrders orders={orders} setOrders={handleOrdersUpdate} />
+        )}
 
-      {tab === "FormOverview" && (
-        <FormOverview personalinfo={personalInfo} orders={orders} />
-      )}
+        {tab === "FormOverview" && (
+          <FormOverview personalinfo={personalInfo} orders={orders} />
+        )}
+      </div>
     </div>
   );
 };
