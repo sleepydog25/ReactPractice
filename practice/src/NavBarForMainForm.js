@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-
+import React, { useState } from "react";
+import "./NavBarForMainForm.css";
 
 const NavBarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
   // find the index of the main Form
@@ -19,9 +19,13 @@ const NavBarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
   };
 
   return (
-    <div className="navBar">
- {/* previous page */}
- <button onClick={handlePrevious} disabled={currentIndex === 0}>
+    <div className="buttonContainer">
+      {/* previous page */}
+      <button
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+        className="navButton"
+      >
         Previous
       </button>
 
@@ -29,9 +33,9 @@ const NavBarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
       {mainFormName.map((name, index) => (
         <button
           key={name}
-          className={name === activeForm ? "active" : ""}
+          className={`navButton ${name === activeForm ? "active" : ""}`}
           onClick={() => setActiveForm(name)}
-          title={name} 
+          title={name}
         >
           {index + 1}
         </button>
@@ -41,6 +45,7 @@ const NavBarForMainForm = ({ mainFormName, activeForm, setActiveForm }) => {
       <button
         onClick={handleNext}
         disabled={currentIndex === mainFormName.length - 1}
+        className="navButton"
       >
         Next
       </button>
