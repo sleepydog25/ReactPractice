@@ -96,19 +96,19 @@ const fake = [
 const fakeMainForName = fake.map((form) => form.id);
 
 function App() {
-  const [activeForm, setActiveForm] = useState(fakeMainForName[0]); // set the first APi fake data
-  const [data, setData] = useState(null);
   const [forms, setForms] = useState(fake);
+  const [activeFormId, setActiveFormId] = useState(forms[0].id);
+  //testing
+  console.log("Forms:", forms);
 
-  const activeFormData = forms.find((form) => form.id === activeForm);
-  // useEffect(() => {
-  //   setData(fake.find((form) => form.id === activeForm));
-  // }, [activeForm, forms]);
+  const activeForm = forms.find((form) => form.id === activeFormId);
+  //testing
+  console.log("ActiveFormId", activeFormId);
 
   const updateFormData = (updatedData) => {
     setForms((prevForms) =>
       prevForms.map((form) =>
-        form.id === activeForm ? { ...form, ...updatedData } : form
+        form.id === activeFormId ? { ...form, ...updatedData } : form
       )
     );
   };
@@ -119,72 +119,46 @@ function App() {
   //   apiData = formAPI();
   // }, []);
 
-  //log this form
-  const logThisForm = () => {
-    console.log(data);
+  //delete form
+  const deleteForm = () => {
+    const updatedForm = forms.filter((form) => form.id !== activeFormId);
+    setForms(updatedForm);
+    setActiveFormId(updatedForm.length > 0 ? updatedForm[0].id : null);
   };
-
-  // // log all form
-  // const logAllForms = () => {
-  //   console.log(forms);
-  // };
-
-  // //Delete this form
-  // const deleteThisForm = () => {
-  //   const updatedForms = forms.filter((form) => form.id !== activeForm);
-  //   setActiveForm(updatedForms);
-
-  //   if (updatedForms.length > 0) {
-  //     setActiveForm(updatedForms[0].id);
-  //   } else {
-  //     setData(null);
-  //   }
-  // };
 
   return (
     <div>
-      <Title mainFormName={activeForm} />
+      <Title mainFormName={activeFormId} />
       <div>
         跳至
         <select
-          value={activeForm}
-          onChange={(e) => setActiveForm(e.target.value)}
+          value={activeFormId}
+          onChange={(e) => setActiveFormId(e.target.value)}
         >
-          {fakeMainForName.map((name) => (
-            <option key={name} value={name}>
-              {name}
+          {forms.map((form) => (
+            <option key={form.id} value={form.id}>
+              {form.id}
             </option>
           ))}
         </select>
-        ，共 {fakeMainForName.length} 張
+        ，共 {forms.length} 張
       </div>
       <div className="button">
-        <Button color="#007bff" onClick={() => console.log(activeFormData)}>
+        <Button color="#007bff" onClick={() => console.log(activeForm)}>
           Log this form
         </Button>
         <Button color="#17a2b8" onClick={() => console.log(forms)}>
           Log all forms
         </Button>
-        <Button
-          color="#dc3545"
-          onClick={() => {
-            const updatedForms = forms.filter((form) => form.id !== activeForm);
-            setForms(updatedForms);
-            if (updatedForms.length > 0) {
-              setActiveForm(updatedForms[0].id);
-            } else {
-              setActiveForm(null);
-            }
-          }}
-        >
+        <Button color="#dc3545" onClick={deleteForm}>
           Delete this form
         </Button>
       </div>
 
       <fieldset>
         <div className="mainForm">
-          {activeFormData && (
-            <MainForm data={activeFormData} updateFormData={updateFormData} />
+          {activeForm && (
+            <MainForm data={activeForm} updateFormData={updateFormData} />
           )}
         </div>
       </fieldset>
@@ -192,7 +166,7 @@ function App() {
       <NavbarForMainForm
         mainFormName={fakeMainForName}
         activeForm={activeForm}
-        setActiveForm={setActiveForm}
+        setActiveForm={setActiveFormId}
       />
     </div>
   );
