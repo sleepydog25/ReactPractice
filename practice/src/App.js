@@ -5,6 +5,7 @@ import Button from "./Button.js";
 import MainForm from "./MainForm.js";
 import NavbarForMainForm from "./NavBarForMainForm.js";
 
+//fake data
 const fake = [
   {
     id: "A0000001",
@@ -88,30 +89,45 @@ const fake = [
   },
 ];
 
+// loading for 2 second
+const fakeGetForms = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(fake), 2000);
+  });
+};
+
 // this is the code review version
 // const fakeMainForName = fake.reduce((acc, cur) => {
 //   return acc.concat(cur.id), [];
 // });
 
-const fakeMainForName = fake.map((form) => form.id);
-
 function App() {
-  const [forms, setForms] = useState(fake);
-  const [activeFormId, setActiveFormId] = useState(forms[0].id);
-  //testing
-  console.log("Forms:", forms);
+  const [forms, setForms] = useState([]); //initialize with no form
+  const [activeFormId, setActiveFormId] = useState(null); // no active form unitl data is fetched
+
+  useEffect(() => {
+    fakeGetForms()
+      .then((data) => {
+        setForms(data); // Set fetched forms
+        setActiveFormId(data[0]?.id); // Set the first form as active
+      })
+      .catch((err) => {
+        console.error("Error loading forms:", err);
+      });
+  }, []);
+
+  if (forms.length === 0) {
+    return (
+      <div>
+        <Title mainFormName={activeFormId} />
+        <div>Loading ... </div>
+      </div>
+    );
+  }
 
   const activeForm = forms.find((form) => form.id === activeFormId);
   //testing
   console.log("ActiveFormId", activeFormId);
-
-  const updateFormData = (updatedData) => {
-    setForms((prevForms) =>
-      prevForms.map((form) =>
-        form.id === activeFormId ? { ...form, ...updatedData } : form
-      )
-    );
-  };
 
   //the code review
   // const [data, setData] = useState(apiData[0]);
@@ -119,12 +135,29 @@ function App() {
   //   apiData = formAPI();
   // }, []);
 
-  //delete form
-  const deleteForm = () => {
-    const updatedForm = forms.filter((form) => form.id !== activeFormId);
-    setForms(updatedForm);
-    setActiveFormId(updatedForm.length > 0 ? updatedForm[0].id : null);
+  const logThisForm = () => {
+    console.log(forms.find((form) => form.id === activeFormId));
   };
+
+  const logAllForms = () => {
+    console.log(forms);
+  };
+
+  //delete form
+
+  const deleteThisForm = () => {
+    const updatedForms = forms.filter((form) => form.id !== activeFormId);
+    setForms(updatedForms); // Update forms after deletion
+    setActiveFormId(updatedForms[0]?.id || null); // Handle the case when no forms are left
+  };
+  if (!forms) {
+    return (
+      <div>
+        <Title mainFormName={activeFormId} />
+        <div>Loading ... </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -144,13 +177,13 @@ function App() {
         ，共 {forms.length} 張
       </div>
       <div className="button">
-        <Button color="#007bff" onClick={() => console.log(activeForm)}>
+        <Button color="#007bff" onClick={logThisForm}>
           Log this form
         </Button>
-        <Button color="#17a2b8" onClick={() => console.log(forms)}>
+        <Button color="#17a2b8" onClick={logAllForms}>
           Log all forms
         </Button>
-        <Button color="#dc3545" onClick={deleteForm}>
+        <Button color="#dc3545" onClick={deleteThisForm}>
           Delete this form
         </Button>
       </div>
@@ -158,14 +191,14 @@ function App() {
       <fieldset>
         <div className="mainForm">
           {activeForm && (
-            <MainForm data={activeForm} updateFormData={updateFormData} />
+            <MainForm data={forms.find((form) => form.id === activeFormId)} />
           )}
         </div>
       </fieldset>
 
       <NavbarForMainForm
-        mainFormName={fakeMainForName}
-        activeForm={activeForm}
+        mainFormName={forms.map((form) => form.id)}
+        activeForm={activeFormId}
         setActiveForm={setActiveFormId}
       />
     </div>
