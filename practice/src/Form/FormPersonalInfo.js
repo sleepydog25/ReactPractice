@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const FormPersonalInfo = ({ personalinfo }) => {
-
+const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [lastNameValue, setLastNameValue] = useState("");
   const [addressValue, setAddressValue] = useState(""); // follow address value
@@ -19,25 +18,35 @@ const FormPersonalInfo = ({ personalinfo }) => {
     }
   }, [personalinfo]);
 
-  const firstNameChange = (e) => setFirstNameValue(e.target.value);
-  const lastNameChange = (e) => setLastNameValue(e.target.value);
-  const addressChange = (e) => setAddressValue(e.target.value);
+  const firstNameChange = (e) => {
+    setFirstNameValue(e.target.value);
+    setPersonalInfo((prev) => ({ ...prev, first_name: e.target.value }));
+  };
+  const lastNameChange = (e) => {
+    setLastNameValue(e.target.value);
+    setPersonalInfo((prev) => ({ ...prev, last_name: e.target.value }));
+  };
+
+  const addressChange = (e) => {
+    setAddressValue(e.target.value);
+    setPersonalInfo((prev) => ({ ...prev, address: e.target.value }));
+  };
+
   const checkboxChange = (e) => {
     setNoHouseChecked(e.target.checked);
+    setPersonalInfo((prev) => ({ ...prev, is_homeless: e.target.checked }));
     if (e.target.checked) {
       setAddressValue("");
+      setPersonalInfo((prev) => ({ ...prev, address: "" }));
     }
   };
-  const textChange = (e) => setTextValue(e.target.value);
-  const remainingWords = maxLength - textValue.length;
 
-  // save name to localStorage (?)
-  // useEffect(() => {
-  //   localStorage.setItem("firstName", firstNameValue);
-  // }, [firstNameValue]);
-  // useEffect(() => {
-  //   localStorage.setItem("lastName", lastNameValue);
-  // }, [lastNameValue]);
+  const textChange = (e) => {
+    setTextValue(e.target.value);
+    setPersonalInfo((prev) => ({ ...prev, note: e.target.value }));
+  };
+
+  const remainingWords = maxLength - textValue.length;
 
   return (
     <div>

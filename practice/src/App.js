@@ -100,9 +100,18 @@ function App() {
   const [data, setData] = useState(null);
   const [forms, setForms] = useState(fake);
 
-  useEffect(() => {
-    setData(fake.find((form) => form.id === activeForm));
-  }, [activeForm, forms]);
+  const activeFormData = forms.find((form) => form.id === activeForm);
+  // useEffect(() => {
+  //   setData(fake.find((form) => form.id === activeForm));
+  // }, [activeForm, forms]);
+
+  const updateFormData = (updatedData) => {
+    setForms((prevForms) =>
+      prevForms.map((form) =>
+        form.id === activeForm ? { ...form, ...updatedData } : form
+      )
+    );
+  };
 
   //the code review
   // const [data, setData] = useState(apiData[0]);
@@ -115,34 +124,25 @@ function App() {
     console.log(data);
   };
 
-  // log all form
-  const logAllForms = () => {
-    console.log(forms);
-  };
+  // // log all form
+  // const logAllForms = () => {
+  //   console.log(forms);
+  // };
 
-  //Delete this form
-  const deleteThisForm = () => {
-    const updatedForms = forms.filter((form) => form.id !== activeForm);
-    setActiveForm(updatedForms);
+  // //Delete this form
+  // const deleteThisForm = () => {
+  //   const updatedForms = forms.filter((form) => form.id !== activeForm);
+  //   setActiveForm(updatedForms);
 
-    if (updatedForms.length > 0) {
-      setActiveForm(updatedForms[0].id);
-    } else {
-      setData(null);
-    }
-  };
-
-  // the css zone
-  const theFirstDiv = {
-    margin: "10px 10px 10px 10px",
-  };
-
-  const fieldsetStyle = {
-    margin: "10px 0 10px 0",
-  };
+  //   if (updatedForms.length > 0) {
+  //     setActiveForm(updatedForms[0].id);
+  //   } else {
+  //     setData(null);
+  //   }
+  // };
 
   return (
-    <div style={theFirstDiv}>
+    <div>
       <Title mainFormName={activeForm} />
       <div>
         跳至
@@ -159,19 +159,34 @@ function App() {
         ，共 {fakeMainForName.length} 張
       </div>
       <div className="button">
-        <Button color="#007bff" onClick={logThisForm}>
+        <Button color="#007bff" onClick={() => console.log(activeFormData)}>
           Log this form
         </Button>
-        <Button color="#17a2b8" onClick={logAllForms}>
+        <Button color="#17a2b8" onClick={() => console.log(forms)}>
           Log all forms
         </Button>
-        <Button color="#dc3545" onClick={deleteThisForm}>
+        <Button
+          color="#dc3545"
+          onClick={() => {
+            const updatedForms = forms.filter((form) => form.id !== activeForm);
+            setForms(updatedForms);
+            if (updatedForms.length > 0) {
+              setActiveForm(updatedForms[0].id);
+            } else {
+              setActiveForm(null);
+            }
+          }}
+        >
           Delete this form
         </Button>
       </div>
 
-      <fieldset style={fieldsetStyle}>
-        <div className="mainForm">{data && <MainForm data={data} />}</div>
+      <fieldset>
+        <div className="mainForm">
+          {activeFormData && (
+            <MainForm data={activeFormData} updateFormData={updateFormData} />
+          )}
+        </div>
       </fieldset>
 
       <NavbarForMainForm

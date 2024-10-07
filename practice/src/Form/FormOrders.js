@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button";
 
-const FormOrders = ({ orders }) => {
+const FormOrders = ({ orders, setOrders }) => {
   // initialize apple count
   const [count, setCount] = useState(orders?.apple_count || 0);
 
@@ -10,34 +10,22 @@ const FormOrders = ({ orders }) => {
     orders?.banana_condiments || []
   );
 
-  //the old version should be deleted lateer
-  // find appleValue in localstorage or return 0
-  // const [count, setCount] = useState(() => {
-  //   const storedAppleValue = localStorage.getItem("appleValue");
-  //   return storedAppleValue ? Number(storedAppleValue) : 0;
-  // });
-
-  //find toppings in localstorage or return an empty array
-  // const [selectedToppings, setSelectedToppings] = useState(() => {
-  //   const storedToppings = localStorage.getItem("selectedToppings");
-  //   return storedToppings ? JSON.parse(storedToppings) : [];
-  // });
-
   //count the apple
   const updateCount = (amount) => {
-    setCount((prevCount) => prevCount + amount);
+    const newCount = count + amount;
+    setCount(newCount);
+    setOrders((prev) => ({ ...prev, apple_count: newCount }));
   };
 
   // when checkbox change update selectedToppings
   const CheckboxChange = (e) => {
     const { id, checked } = e.target;
+    const updatedToppings = checked
+      ? [...selectedToppings, id]
+      : selectedToppings.filter((topping) => topping !== id);
 
-    setSelectedToppings((prevToppings) => {
-      const updatedToppings = checked
-        ? [...prevToppings, id]
-        : prevToppings.filter((topping) => topping !== id);
-      return updatedToppings;
-    });
+    setSelectedToppings(updatedToppings);
+    setOrders((prev) => ({ ...prev, banana_condiments: updatedToppings }));
   };
 
   // toppings and ids
