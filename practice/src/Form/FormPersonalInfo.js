@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
+const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
   const maxLength = 2000;
 
   const firstNameChange = (e) => {
-    setPersonalInfo({
+    handlePersonalInfo({
       ...personalinfo,
       first_name: e.target.value,
     });
   };
 
   const lastNameChange = (e) => {
-    setPersonalInfo({
+    handlePersonalInfo({
       ...personalinfo,
       last_name: e.target.value,
     });
   };
 
   const addressChange = (e) => {
-    setPersonalInfo({
+    handlePersonalInfo({
       ...personalinfo,
       address: e.target.value,
     });
   };
 
   const checkboxChange = (e) => {
-    setPersonalInfo({
+    handlePersonalInfo({
       ...personalinfo,
       is_homeless: e.target.check,
       address: e.target.checked ? "" : personalinfo.address,
@@ -33,7 +33,7 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
   };
 
   const textChange = (e) => {
-    setPersonalInfo({
+    handlePersonalInfo({
       ...personalinfo,
       note: e.target.value,
     });

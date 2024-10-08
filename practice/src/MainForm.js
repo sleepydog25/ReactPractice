@@ -44,40 +44,52 @@ const MainForm = ({ data, updateFormData }) => {
 
   return (
     <div>
-      <div>
+      <div className="mb-2">
         <Button
           onClick={() => setTab("FormPersonalInfo")}
-          className={`tab-button ${getTabClass("FormPersonalInfo")}`}
+          // className={`tab-button ${getTabClass("FormPersonalInfo")} mr-4`}
+          className={`tab-button ${getTabClass("FormPersonalInfo")} ${
+            tab === "FormPersonalInfo" ? "border border-gray-400  p-2" : "p-2"
+          }`}
         >
           Personal Info
         </Button>
         <Button
           onClick={() => setTab("FormOrders")}
-          className={`tab-button ${getTabClass("FormOrders")}`}
+          // className={`tab-button ${getTabClass("FormOrders")} mr-4`}
+          className={`tab-button ${getTabClass("FormOrders")} ${
+            tab === "FormOrders" ? "border border-gray-400  p-2" : "p-2"
+          }`}
         >
           Order
         </Button>
         <Button
           onClick={() => setTab("FormOverview")}
-          className={`tab-button ${getTabClass("FormOverview")}`}
+          // className={`tab-button ${getTabClass("FormOverview")} `}
+          className={`tab-button ${getTabClass("FormOverview")} ${
+            tab === "FormOverview" ? "border border-gray-400 p-2" : "p-2"
+          }`}
         >
           Overview
         </Button>
 
-        {tab === "FormPersonalInfo" && (
-          <FormPersonalInfo
-            personalinfo={personalInfo}
-            handlePersonalInfo={handlePersonalInfoUpdate} // 改名字，因為參數裡面傳入其他邏輯，下面的orders 也要改
-          />
-        )}
-
-        {tab === "FormOrders" && (
-          <FormOrders orders={orders} handleOrdersUpdate={handleOrdersUpdate} />
-        )}
-
-        {tab === "FormOverview" && (
-          <FormOverview personalinfo={personalInfo} orders={orders} />
-        )}
+        <div className="border border-gray-300  p-4">
+          {tab === "FormPersonalInfo" && (
+            <FormPersonalInfo
+              personalinfo={personalInfo}
+              handlePersonalInfo={handlePersonalInfoUpdate} // 改名字，因為參數裡面傳入其他邏輯，下面的orders 也要改
+            />
+          )}
+          {tab === "FormOrders" && (
+            <FormOrders
+              orders={orders}
+              handleOrdersUpdate={handleOrdersUpdate}
+            />
+          )}
+          {tab === "FormOverview" && (
+            <FormOverview personalinfo={personalInfo} orders={orders} />
+          )}
+        </div>
       </div>
     </div>
   );

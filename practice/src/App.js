@@ -189,13 +189,13 @@ function App() {
         </Button>
       </div>
 
-      {/* <fieldset className="mainFormBorder"> */}
-      <div>
-        {activeForm && (
-          <MainForm data={forms.find((form) => form.id === activeFormId)} />
-        )}
-      </div>
-      {/* </fieldset> */}
+      <fieldset className="mainFormBorder">
+        <div>
+          {activeForm && (
+            <MainForm data={forms.find((form) => form.id === activeFormId)} />
+          )}
+        </div>
+      </fieldset>
 
       <NavbarForMainForm
         mainFormName={forms.map((form) => form.id)}
