@@ -1,55 +1,94 @@
 import React, { useState, useEffect } from "react";
 
 const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
-  const [firstNameValue, setFirstNameValue] = useState("");
-  const [lastNameValue, setLastNameValue] = useState("");
-  const [addressValue, setAddressValue] = useState(""); // follow address value
-  const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
-  const [textValue, setTextValue] = useState(""); // follow the textarea
   const maxLength = 2000;
 
-  useEffect(() => {
-    if (personalinfo) {
-      setFirstNameValue(personalinfo.first_name || "unknown");
-      setLastNameValue(personalinfo.last_name || "unknown");
-      setAddressValue(personalinfo.address || "");
-      setNoHouseChecked(personalinfo.is_homeless || false);
-      setTextValue(personalinfo.note || "");
-    }
-  }, [personalinfo]);
-
   const firstNameChange = (e) => {
-    setFirstNameValue(e.target.value);
-    setPersonalInfo((prev) => ({ ...prev, first_name: e.target.value }));
+    setPersonalInfo({
+      ...personalinfo,
+      first_name: e.target.value,
+    });
   };
+
   const lastNameChange = (e) => {
-    setLastNameValue(e.target.value);
-    setPersonalInfo((prev) => ({ ...prev, last_name: e.target.value }));
+    setPersonalInfo({
+      ...personalinfo,
+      last_name: e.target.value,
+    });
   };
+
+  const addressChange = (e) => {
+    setPersonalInfo({
+      ...personalinfo,
+      address: e.target.value,
+    });
+  };
+
+  const checkboxChange = (e) => {
+    setPersonalInfo({
+      ...personalinfo,
+      is_homeless: e.target.check,
+      address: e.target.checked ? "" : personalinfo.address,
+    });
+  };
+
+  const textChange = (e) => {
+    setPersonalInfo({
+      ...personalinfo,
+      note: e.target.value,
+    });
+  };
+
+  //the old verison should be deprecated soon
+
+  //   const [firstNameValue, setFirstNameValue] = useState("");
+  //   const [lastNameValue, setLastNameValue] = useState("");
+  //   const [addressValue, setAddressValue] = useState(""); // follow address value
+  //   const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
+  //   const [textValue, setTextValue] = useState(""); // follow the textarea
+
+  //   useEffect(() => {
+  //     if (personalinfo) {
+  //       setFirstNameValue(personalinfo.first_name || "unknown");
+  //       setLastNameValue(personalinfo.last_name || "unknown");
+  //       setAddressValue(personalinfo.address || "");
+  //       setNoHouseChecked(personalinfo.is_homeless || false);
+  //       setTextValue(personalinfo.note || "");
+  //     }
+  //   }, [personalinfo]);
+
+  //   const firstNameChange = (e) => {
+  //     setFirstNameValue(e.target.value);
+  //     setPersonalInfo((prev) => ({ ...prev, first_name: e.target.value }));
+  //   };
+  //   const lastNameChange = (e) => {
+  //     setLastNameValue(e.target.value);
+  //     setPersonalInfo((prev) => ({ ...prev, last_name: e.target.value }));
+  //   };
   // 要改成類似這樣，沒有 useState
   // const lastNameChange = (e) => {
   //   setLastNameValue(e.target.value);
   //   setPersonalInfo([ ...prev, last_name: e.target.value ]);
   // };
 
-  const addressChange = (e) => {
-    setAddressValue(e.target.value);
-    setPersonalInfo((prev) => ({ ...prev, address: e.target.value }));
-  };
+  // const addressChange = (e) => {
+  //   setAddressValue(e.target.value);
+  //   setPersonalInfo((prev) => ({ ...prev, address: e.target.value }));
+  // };
 
-  const checkboxChange = (e) => {
-    setNoHouseChecked(e.target.checked);
-    setPersonalInfo((prev) => ({ ...prev, is_homeless: e.target.checked }));
-    if (e.target.checked) {
-      setAddressValue("");
-      setPersonalInfo((prev) => ({ ...prev, address: "" }));
-    }
-  };
+  // const checkboxChange = (e) => {
+  //   setNoHouseChecked(e.target.checked);
+  //   setPersonalInfo((prev) => ({ ...prev, is_homeless: e.target.checked }));
+  //   if (e.target.checked) {
+  //     setAddressValue("");
+  //     setPersonalInfo((prev) => ({ ...prev, address: "" }));
+  //   }
+  // };
 
-  const textChange = (e) => {
-    setTextValue(e.target.value);
-    setPersonalInfo((prev) => ({ ...prev, note: e.target.value }));
-  };
+  // const textChange = (e) => {
+  //   setTextValue(e.target.value);
+  //   setPersonalInfo((prev) => ({ ...prev, note: e.target.value }));
+  // };
 
   // the css zone
 
@@ -131,7 +170,7 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
               type="text"
               id="firstName"
               name="firstName"
-              value={firstNameValue}
+              value={personalinfo.first_name || "unknown"}
               onChange={firstNameChange}
               required
               style={nameInputStyle}
@@ -145,7 +184,7 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
               type="text"
               id="lastName"
               name="lastName"
-              value={lastNameValue}
+              value={personalinfo.last_name || "unknown"}
               // value={personalinfo.lastName||"unknown"} 要改成這樣
               onChange={lastNameChange}
               style={nameInputStyle}
@@ -207,9 +246,9 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
             type="text"
             id="address"
             name="address"
-            value={addressValue}
+            value={personalinfo.address || ""}
             onChange={addressChange}
-            disabled={noHouseChecked}
+            disabled={personalinfo.is_homeless}
             style={addressInputStyle}
           />
           <br />
@@ -217,7 +256,7 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
             type="checkbox"
             id="noHouse"
             name="noHouse"
-            checked={noHouseChecked}
+            checked={personalinfo.is_homeless || false}
             onChange={checkboxChange}
           />
           <label htmlFor="noHouse">此客戶居無定所</label>
@@ -242,14 +281,14 @@ const FormPersonalInfo = ({ personalinfo, setPersonalInfo }) => {
           <br />
           <p>
             {" "}
-            {textValue.length} / {maxLength} characters
+            {personalinfo.note?.length || 0} / {maxLength} characters
           </p>
           <textarea
             id="note"
             name="note"
             rows="10"
             cols="50"
-            value={textValue}
+            value={personalinfo.note || ""}
             onChange={textChange}
             maxLength={maxLength}
             style={noteInputStyle}

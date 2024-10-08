@@ -43,8 +43,8 @@ const MainForm = ({ data, updateFormData }) => {
   };
 
   return (
-    <div className="mb-4">
-      <div className="flex space-x-4 mb-4">
+    <div>
+      <div>
         <Button
           onClick={() => setTab("FormPersonalInfo")}
           className={`tab-button ${getTabClass("FormPersonalInfo")}`}
