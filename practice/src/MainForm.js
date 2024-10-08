@@ -3,7 +3,6 @@ import FormPersonalInfo from "./Form/FormPersonalInfo.js";
 import FormOrders from "./Form/FormOrders.js";
 import FormOverview from "./Form/FormOverview.js";
 import Button from "./Button.js";
-import "./MainForm.css";
 
 const MainForm = ({ data, updateFormData }) => {
   const [tab, setTab] = useState("FormPersonalInfo");
@@ -73,7 +72,7 @@ const MainForm = ({ data, updateFormData }) => {
           Overview
         </Button>
 
-        <div className="border border-gray-300  p-4">
+        <div className="border border-gray-300  p-4 ">
           {tab === "FormPersonalInfo" && (
             <FormPersonalInfo
               personalinfo={personalInfo}
