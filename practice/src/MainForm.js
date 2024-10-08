@@ -72,7 +72,7 @@ const MainForm = ({ data, updateFormData }) => {
         )}
 
         {tab === "FormOrders" && (
-          <FormOrders orders={orders} setOrders={handleOrdersUpdate} />
+          <FormOrders orders={orders} handleOrdersUpdate={handleOrdersUpdate} />
         )}
 
         {tab === "FormOverview" && (
