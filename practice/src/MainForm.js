@@ -43,7 +43,7 @@ const MainForm = ({ data, updateFormData }) => {
 
   return (
     <div>
-      <div className="mb-2">
+      <div>
         <Button
           onClick={() => setTab("FormPersonalInfo")}
           // className={`tab-button ${getTabClass("FormPersonalInfo")} mr-4`}
@@ -72,7 +72,7 @@ const MainForm = ({ data, updateFormData }) => {
           Overview
         </Button>
 
-        <div className="border border-gray-300  p-4 ">
+        <div className="border border-gray-400  p-4 ">
           {tab === "FormPersonalInfo" && (
             <FormPersonalInfo
               personalinfo={personalInfo}
