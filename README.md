@@ -1,4 +1,7 @@
-DataBase Schema
+# Project: React Practice
+This is a project for practicing react
+
+## DataBase Schema
 https://dbdiagram.io/d
 
 ```
