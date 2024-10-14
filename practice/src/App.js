@@ -126,8 +126,41 @@ function App() {
   }
 
   const activeForm = forms.find((form) => form.id === activeFormId);
+
   //testing
   console.log("ActiveFormId", activeFormId);
+
+  // function to generate a new mainID
+  const generateNewMainId = () => {
+    const maxId = Math.max(
+      ...forms.map((form) => parseInt(form.id.substring(1)))
+    );
+    const newId = `A${String(maxId + 1).padStart(7, "0")}`;
+    return newId;
+  };
+
+  //funciton to create a new form
+  const createNewForm = () => {
+    const newId = generateNewMainId();
+    const newForm = {
+      id: newId,
+      personal_info: {
+        first_name: "unknown",
+        last_name: "unknown",
+        gender: 0,
+        address: "",
+        is_homeless: false,
+        job: "agent",
+        note: "",
+      },
+      orders: {
+        apple_count: 0,
+        banana_condiments: [],
+      },
+    };
+    setForms([...forms, newForm]);
+    setActiveFormId(newId);
+  };
 
   //the code review
   // const [data, setData] = useState(apiData[0]);
@@ -186,6 +219,9 @@ function App() {
         </Button>
         <Button color="#dc3545" onClick={deleteThisForm} className="logButton">
           Delete this form
+        </Button>
+        <Button color="#ffc107" onClick={createNewForm} className="logButton">
+          Create New Form
         </Button>
       </div>
 

@@ -2,33 +2,6 @@ import React, { useState, useEffect } from "react";
 import Button from "../Button";
 
 const FormOrders = ({ orders, handleOrdersUpdate }) => {
-  // the old version should be deprecated soon
-  // initialize apple count
-  // const [count, setCount] = useState(orders?.apple_count || 0);
-
-  // initialize banana toppings
-  // const [selectedToppings, setSelectedToppings] = useState(
-  //   orders?.banana_condiments || []
-  // );
-
-  //count the apple
-  // const updateCount = (amount) => {
-  //   const newCount = count + amount;
-  //   setCount(newCount);
-  //   setOrders((prev) => ({ ...prev, apple_count: newCount }));
-  // };
-
-  // when checkbox change update selectedToppings
-  // const CheckboxChange = (e) => {
-  //   const { id, checked } = e.target;
-  //   const updatedToppings = checked
-  //     ? [...selectedToppings, id]
-  //     : selectedToppings.filter((topping) => topping !== id);
-
-  //   setSelectedToppings(updatedToppings);
-  //   setOrders((prev) => ({ ...prev, banana_condiments: updatedToppings }));
-  // };
-
   const updateCount = (amount) => {
     const newCount = orders.apple_count + amount; // 直接從 props 中取值
     handleOrdersUpdate({
