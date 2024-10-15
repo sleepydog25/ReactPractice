@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "../Button";
 
 const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
   const maxLength = 2000;
@@ -38,57 +39,6 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
       note: e.target.value,
     });
   };
-
-  //the old verison should be deprecated soon
-
-  //   const [firstNameValue, setFirstNameValue] = useState("");
-  //   const [lastNameValue, setLastNameValue] = useState("");
-  //   const [addressValue, setAddressValue] = useState(""); // follow address value
-  //   const [noHouseChecked, setNoHouseChecked] = useState(false); // follow address checkbox
-  //   const [textValue, setTextValue] = useState(""); // follow the textarea
-
-  //   useEffect(() => {
-  //     if (personalinfo) {
-  //       setFirstNameValue(personalinfo.first_name || "unknown");
-  //       setLastNameValue(personalinfo.last_name || "unknown");
-  //       setAddressValue(personalinfo.address || "");
-  //       setNoHouseChecked(personalinfo.is_homeless || false);
-  //       setTextValue(personalinfo.note || "");
-  //     }
-  //   }, [personalinfo]);
-
-  //   const firstNameChange = (e) => {
-  //     setFirstNameValue(e.target.value);
-  //     setPersonalInfo((prev) => ({ ...prev, first_name: e.target.value }));
-  //   };
-  //   const lastNameChange = (e) => {
-  //     setLastNameValue(e.target.value);
-  //     setPersonalInfo((prev) => ({ ...prev, last_name: e.target.value }));
-  //   };
-  // 要改成類似這樣，沒有 useState
-  // const lastNameChange = (e) => {
-  //   setLastNameValue(e.target.value);
-  //   setPersonalInfo([ ...prev, last_name: e.target.value ]);
-  // };
-
-  // const addressChange = (e) => {
-  //   setAddressValue(e.target.value);
-  //   setPersonalInfo((prev) => ({ ...prev, address: e.target.value }));
-  // };
-
-  // const checkboxChange = (e) => {
-  //   setNoHouseChecked(e.target.checked);
-  //   setPersonalInfo((prev) => ({ ...prev, is_homeless: e.target.checked }));
-  //   if (e.target.checked) {
-  //     setAddressValue("");
-  //     setPersonalInfo((prev) => ({ ...prev, address: "" }));
-  //   }
-  // };
-
-  // const textChange = (e) => {
-  //   setTextValue(e.target.value);
-  //   setPersonalInfo((prev) => ({ ...prev, note: e.target.value }));
-  // };
 
   // the css zone
 
@@ -156,6 +106,13 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
   // the note css zone
   const noteInputStyle = {
     border: "1px solid #000000",
+  };
+
+  // this is the submit button zone
+  const submitButtonStyle = {
+    padding: "0.5em",
+    color: "white",
+    backgroundColor: "#007bff",
   };
 
   return (
@@ -293,6 +250,10 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
             maxLength={maxLength}
             style={noteInputStyle}
           />
+        </section>
+
+        <section>
+          <button style={submitButtonStyle}>update</button>
         </section>
       </form>
     </div>

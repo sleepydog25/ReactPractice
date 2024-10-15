@@ -72,6 +72,20 @@ const FormOrders = ({ orders, handleOrdersUpdate }) => {
     alignItems: "center",
   };
 
+  // this is the button zone
+  const submitButtonStyle = {
+    padding: "0.5em",
+    color: "white",
+    backgroundColor: "#007bff",
+    margin: "0.5em",
+  };
+  const createButtonStyle = {
+    padding: "0.5em",
+    color: "white",
+    backgroundColor: "#ffc107",
+    margin: "0.5em",
+  };
+
   return (
     <div>
       <section style={applesectionStyle}>
@@ -134,6 +148,9 @@ const FormOrders = ({ orders, handleOrdersUpdate }) => {
             </div>
           ))}
         </div>
+      </section>
+      <section>
+        <button style={submitButtonStyle}>update</button>
       </section>
     </div>
   );
