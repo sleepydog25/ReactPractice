@@ -220,10 +220,23 @@ function App() {
   };
 
   //delete form
-  const deleteThisForm = () => {
-    const updatedForms = forms.filter((form) => form.id !== activeFormId);
-    setForms(updatedForms); // Update forms after deletion
-    setActiveFormId(updatedForms[0]?.id || null); // Handle the case when no forms are left
+  const deleteThisForm = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8082/PPMService/practice/",
+        { method: "DELETE" }
+      );
+      if (!response.ok) {
+        throw new Error("fail to delete");
+      }
+
+      const updatedForms = forms.filter((form) => form.id !== activeForm);
+      setForms(updatedForms);
+      setActiveFormId(updatedForms[0]?.id || null);
+      console.log("form delete successful");
+    } catch (err) {
+      console.err("Error deleting", err);
+    }
   };
 
   return (
