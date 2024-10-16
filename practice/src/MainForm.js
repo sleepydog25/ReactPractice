@@ -4,7 +4,7 @@ import FormOrders from "./Form/FormOrders.js";
 import FormOverview from "./Form/FormOverview.js";
 import Button from "./Button.js";
 
-const MainForm = ({ data, updateFormData }) => {
+const MainForm = ({ data, updateFormData, mainFormId }) => {
   const [tab, setTab] = useState("FormPersonalInfo");
   const [personalInfo, setPersonalInfo] = useState(data.personal_info);
   const [orders, setOrders] = useState(data.orders);
@@ -17,9 +17,15 @@ const MainForm = ({ data, updateFormData }) => {
   }, [data]);
 
   // when personalInfo changes pass it to App.js
+  // const handlePersonalInfoUpdate = (newPersonalInfo) => {
+  //   console.log("update personalInfo:", newPersonalInfo);
+  //   setPersonalInfo(newPersonalInfo);
+  //   updateFormData({ personal_info: newPersonalInfo });
+  // };
+
   const handlePersonalInfoUpdate = (newPersonalInfo) => {
-    console.log("update personalInfo:", newPersonalInfo);
     setPersonalInfo(newPersonalInfo);
+    // Update the overall form data
     updateFormData({ personal_info: newPersonalInfo });
   };
 
@@ -73,10 +79,18 @@ const MainForm = ({ data, updateFormData }) => {
         </Button>
 
         <div className="border border-gray-400  p-4 ">
+          {/* {tab === "FormPersonalInfo" && (
+            <FormPersonalInfo
+              personalinfo={personalInfo}
+              handlePersonalInfo={handlePersonalInfoUpdate}
+            />
+          )} */}
+
           {tab === "FormPersonalInfo" && (
             <FormPersonalInfo
               personalinfo={personalInfo}
-              handlePersonalInfo={handlePersonalInfoUpdate} // 改名字，因為參數裡面傳入其他邏輯，下面的orders 也要改
+              mainFormId={mainFormId} // Pass mainFormId here
+              handlePersonalInfo={handlePersonalInfoUpdate}
             />
           )}
           {tab === "FormOrders" && (

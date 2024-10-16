@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button";
 
-const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
+const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
   const maxLength = 2000;
 
   const firstNameChange = (e) => {
@@ -38,6 +38,48 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
       ...personalinfo,
       note: e.target.value,
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Construct the request body based on the backend's expected format
+    const requestBody = {
+      firstName: personalinfo.first_name,
+      lastName: personalinfo.last_name,
+      gender: personalinfo.gender,
+      address: personalinfo.address,
+      isHomeless: personalinfo.is_homeless,
+      job: personalinfo.job,
+      note: personalinfo.note,
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:8082/PPMService/practice/updatePersonalInfoPractice/${mainFormId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update personal info");
+      }
+
+      const result = await response.json();
+      console.log("Update successful:", result);
+
+      // Optionally, you can update the parent component or show a success message
+      // For example, you might call a prop function to refresh data:
+      // handlePersonalInfo(result.data);
+    } catch (err) {
+      console.error("Error updating personal info:", err);
+      // Handle error, e.g., show error message to the user
+    }
   };
 
   // the css zone
@@ -117,7 +159,7 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
 
   return (
     <div>
-      <form action="#">
+      <form action="#" onSubmit={handleSubmit}>
         {/* first name / last name section */}
         <section style={nameStyleRow}>
           <div style={nameInputGroup}>
@@ -128,7 +170,13 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
               id="firstName"
               name="firstName"
               value={personalinfo.first_name || "unknown"}
-              onChange={firstNameChange}
+              // onChange={firstNameChange}
+              onChange={(e) =>
+                handlePersonalInfo({
+                  ...personalinfo,
+                  first_name: e.target.value,
+                })
+              }
               required
               style={nameInputStyle}
             />
@@ -142,8 +190,13 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
               id="lastName"
               name="lastName"
               value={personalinfo.last_name || "unknown"}
-              // value={personalinfo.lastName||"unknown"} 要改成這樣
-              onChange={lastNameChange}
+              // onChange={lastNameChange}
+              onChange={(e) =>
+                handlePersonalInfo({
+                  ...personalinfo,
+                  last_name: e.target.value,
+                })
+              }
               style={nameInputStyle}
               required
             />
@@ -158,12 +211,25 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
             </label>
             <div style={radioColumnStyle}>
               <div style={radioOptionSytle}>
+                {/* <input
+                  type="radio"
+                  id="Secret"
+                  name="gender"
+                  value="0"
+                  checked={personalinfo.gender === 0}
+                /> */}
                 <input
                   type="radio"
                   id="Secret"
                   name="gender"
                   value="0"
                   checked={personalinfo.gender === 0}
+                  onChange={(e) =>
+                    handlePersonalInfo({
+                      ...personalinfo,
+                      gender: parseInt(e.target.value),
+                    })
+                  }
                 />
                 <label htmlFor="Secret">Secret</label>
               </div>
@@ -176,6 +242,12 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
                   name="gender"
                   value="1"
                   checked={personalinfo.gender === 1}
+                  onChange={(e) =>
+                    handlePersonalInfo({
+                      ...personalinfo,
+                      gender: parseInt(e.target.value),
+                    })
+                  }
                 />
                 <label htmlFor="Female">Female</label>
               </div>
@@ -187,6 +259,12 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
                   name="gender"
                   value="2"
                   checked={personalinfo.gender === 2}
+                  onChange={(e) =>
+                    handlePersonalInfo({
+                      ...personalinfo,
+                      gender: parseInt(e.target.value),
+                    })
+                  }
                 />
                 <label htmlFor="Male">Male</label>
               </div>
@@ -204,7 +282,10 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
             id="address"
             name="address"
             value={personalinfo.address || ""}
-            onChange={addressChange}
+            // onChange={addressChange}
+            onChange={(e) =>
+              handlePersonalInfo({ ...personalinfo, address: e.target.value })
+            }
             disabled={personalinfo.is_homeless}
             style={addressInputStyle}
           />
@@ -214,7 +295,14 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
             id="noHouse"
             name="noHouse"
             checked={personalinfo.is_homeless || false}
-            onChange={checkboxChange}
+            // onChange={checkboxChange}
+            onChange={(e) =>
+              handlePersonalInfo({
+                ...personalinfo,
+                is_homeless: e.target.checked,
+                address: e.target.checked ? "" : personalinfo.address,
+              })
+            }
           />
           <label htmlFor="noHouse">此客戶居無定所</label>
         </section>
@@ -224,7 +312,13 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
           <label htmlFor="job" style={jobLabelStyle}>
             Job
           </label>
-          <select value={personalinfo?.job || "null"} style={JobInputSytle}>
+          <select
+            value={personalinfo?.job || "null"}
+            style={JobInputSytle}
+            onChange={(e) =>
+              handlePersonalInfo({ ...personalinfo, job: e.target.value })
+            }
+          >
             <option value="null">保密</option>
             <option value="agent">調查員</option>
             <option value="sercet_agent">秘密調查員</option>
@@ -237,7 +331,6 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
           <label htmlFor="note">Note</label>
           <br />
           <p>
-            {" "}
             {personalinfo.note?.length || 0} / {maxLength} characters
           </p>
           <textarea
@@ -246,14 +339,19 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo }) => {
             rows="10"
             cols="50"
             value={personalinfo.note || ""}
-            onChange={textChange}
+            // onChange={textChange}
+            onChange={(e) =>
+              handlePersonalInfo({ ...personalinfo, note: e.target.value })
+            }
             maxLength={maxLength}
             style={noteInputStyle}
           />
         </section>
 
         <section>
-          <button style={submitButtonStyle}>update</button>
+          <button type="submit" style={submitButtonStyle}>
+            Update
+          </button>
         </section>
       </form>
     </div>

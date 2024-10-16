@@ -248,6 +248,14 @@ function App() {
     }
   };
 
+  const updateFormData = (updatedData) => {
+    setForms((prevForms) =>
+      prevForms.map((form) =>
+        form.id === activeFormId ? { ...form, ...updatedData } : form
+      )
+    );
+  };
+
   const logThisForm = () => {
     console.log(forms.find((form) => form.id === activeFormId));
   };
@@ -318,7 +326,12 @@ function App() {
       <fieldset className="mainFormBorder">
         <div>
           {activeForm && (
-            <MainForm data={forms.find((form) => form.id === activeFormId)} />
+            // <MainForm data={forms.find((form) => form.id === activeFormId)} />
+            <MainForm
+              data={activeForm}
+              mainFormId={activeFormId} // Pass mainFormId here
+              updateFormData={updateFormData}
+            />
           )}
         </div>
       </fieldset>
