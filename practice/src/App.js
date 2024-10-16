@@ -147,7 +147,7 @@ function App() {
             },
           }));
 
-          setForms(mappedData || []); // Set the forms with the mapped data
+          setForms(mappedData || []);
           setActiveFormId(mappedData[0]?.id); // Set the first form as activeForm
         } else {
           console.error("No practiceList found in the response data");
@@ -183,7 +183,8 @@ function App() {
   };
 
   //funciton to create a new form
-  const createNewForm = () => {
+
+  const createNewForm = async () => {
     const newId = generateNewMainId();
     const newForm = {
       id: newId,
@@ -191,25 +192,61 @@ function App() {
         first_name: "unknown",
         last_name: "unknown",
         gender: 0,
-        address: "",
+        address: "123 Main St",
         is_homeless: false,
         job: "agent",
-        note: "",
+        note: "No additional notes",
       },
       orders: {
-        apple_count: 0,
-        banana_condiments: [],
+        apple_count: 50,
+        banana_condiments: "chocolate",
       },
     };
-    setForms([...forms, newForm]);
-    setActiveFormId(newId);
-  };
 
-  //the code review
-  // const [data, setData] = useState(apiData[0]);
-  // useEffect(() => {
-  //   apiData = formAPI();
-  // }, []);
+    const requestBody = JSON.stringify({
+      mainFormId: newForm.id,
+      firstName: newForm.personal_info.first_name,
+      lastName: newForm.personal_info.last_name,
+      gender: newForm.personal_info.gender,
+      address: newForm.personal_info.address,
+      isHomeless: newForm.personal_info.is_homeless,
+      job: newForm.personal_info.job,
+      note: newForm.personal_info.note,
+      appleCount: newForm.orders.apple_count,
+      bananaCondiments: newForm.orders.banana_condiments,
+    });
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    // testing
+    console.log("request body:", requestBody);
+    console.log("headers:", headers);
+
+    try {
+      const response = await fetch(
+        "http://localhost:8082/PPMService/practice/createPractice",
+        {
+          method: "POST",
+          headers: headers,
+          body: requestBody,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to create new form");
+      }
+
+      const result = await response.json();
+      console.log("Form created:", result);
+
+      setForms([...forms, newForm]);
+      setActiveFormId(newId);
+    } catch (err) {
+      console.error("Error creating form:", err);
+    }
+  };
 
   const logThisForm = () => {
     console.log(forms.find((form) => form.id === activeFormId));
@@ -233,10 +270,10 @@ function App() {
         throw new Error("Failed to delete");
       }
 
-      // Update the frontend state if the deletion is successful
+      // Update state if successful
       const updatedForms = forms.filter((form) => form.id !== activeFormId);
       setForms(updatedForms); // Update forms after deletion
-      setActiveFormId(updatedForms[0]?.id || null); // Handle the case when no forms are left
+      setActiveFormId(updatedForms[0]?.id || null); // no forms left
 
       console.log(`deleted successfully`);
     } catch (err) {
