@@ -29,12 +29,18 @@ const MainForm = ({ data, updateFormData, mainFormId }) => {
     updateFormData({ personal_info: newPersonalInfo });
   };
 
-  // when orders change , pass to App.js
   const handleOrdersUpdate = (newOrders) => {
-    console.log("update orders:", newOrders);
+    console.log("Orders updated:", newOrders);
     setOrders(newOrders);
     updateFormData({ orders: newOrders });
   };
+
+  // when orders change , pass to App.js
+  // const handleOrdersUpdate = (newOrders) => {
+  //   console.log("update orders:", newOrders);
+  //   setOrders(newOrders);
+  //   updateFormData({ orders: newOrders });
+  // };
 
   console.log("current tab:", tab);
   console.log("current personalInfo :", personalInfo);
@@ -96,6 +102,7 @@ const MainForm = ({ data, updateFormData, mainFormId }) => {
           {tab === "FormOrders" && (
             <FormOrders
               orders={orders}
+              mainFormId={mainFormId}
               handleOrdersUpdate={handleOrdersUpdate}
             />
           )}

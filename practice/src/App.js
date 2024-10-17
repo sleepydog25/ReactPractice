@@ -243,6 +243,9 @@ function App() {
 
       setForms([...forms, newForm]);
       setActiveFormId(newId);
+
+      //reload
+      window.location.reload();
     } catch (err) {
       console.error("Error creating form:", err);
     }

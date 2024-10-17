@@ -4,47 +4,48 @@ import Button from "../Button";
 const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
   const maxLength = 2000;
 
-  const firstNameChange = (e) => {
-    handlePersonalInfo({
-      ...personalinfo,
-      first_name: e.target.value,
-    });
-  };
+  //not used anymore
+  // const firstNameChange = (e) => {
+  //   handlePersonalInfo({
+  //     ...personalinfo,
+  //     first_name: e.target.value,
+  //   });
+  // };
 
-  const lastNameChange = (e) => {
-    handlePersonalInfo({
-      ...personalinfo,
-      last_name: e.target.value,
-    });
-  };
+  // const lastNameChange = (e) => {
+  //   handlePersonalInfo({
+  //     ...personalinfo,
+  //     last_name: e.target.value,
+  //   });
+  // };
 
-  const addressChange = (e) => {
-    handlePersonalInfo({
-      ...personalinfo,
-      address: e.target.value,
-    });
-  };
+  // const addressChange = (e) => {
+  //   handlePersonalInfo({
+  //     ...personalinfo,
+  //     address: e.target.value,
+  //   });
+  // };
 
-  const checkboxChange = (e) => {
-    handlePersonalInfo({
-      ...personalinfo,
-      is_homeless: e.target.check,
-      address: e.target.checked ? "" : personalinfo.address,
-    });
-  };
+  // const checkboxChange = (e) => {
+  //   handlePersonalInfo({
+  //     ...personalinfo,
+  //     is_homeless: e.target.check,
+  //     address: e.target.checked ? "" : personalinfo.address,
+  //   });
+  // };
 
-  const textChange = (e) => {
-    handlePersonalInfo({
-      ...personalinfo,
-      note: e.target.value,
-    });
-  };
+  // const textChange = (e) => {
+  //   handlePersonalInfo({
+  //     ...personalinfo,
+  //     note: e.target.value,
+  //   });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
     // Construct the request body based on the backend's expected format
-    const requestBody = {
+    const requestBody = JSON.stringify({
       firstName: personalinfo.first_name,
       lastName: personalinfo.last_name,
       gender: personalinfo.gender,
@@ -52,19 +53,23 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
       isHomeless: personalinfo.is_homeless,
       job: personalinfo.job,
       note: personalinfo.note,
-    };
+    });
 
     try {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
       const response = await fetch(
         `http://localhost:8082/PPMService/practice/updatePersonalInfoPractice/${mainFormId}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
+          headers: headers,
+          body: requestBody,
         }
       );
+      console.log("headers:", headers);
+      console.log("request body:", requestBody);
 
       if (!response.ok) {
         throw new Error("Failed to update personal info");
@@ -72,13 +77,8 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
 
       const result = await response.json();
       console.log("Update successful:", result);
-
-      // Optionally, you can update the parent component or show a success message
-      // For example, you might call a prop function to refresh data:
-      // handlePersonalInfo(result.data);
     } catch (err) {
       console.error("Error updating personal info:", err);
-      // Handle error, e.g., show error message to the user
     }
   };
 
