@@ -126,32 +126,36 @@ function App() {
         const data = await response.json();
         console.log("Fetched data:", data);
 
-        // Check if data contains practiceList, then map over practiceList
-        if (data.practiceList && Array.isArray(data.practiceList)) {
-          const mappedData = data.practiceList.map((form) => ({
-            id: form.mainFormId,
-            personal_info: {
-              first_name: form.firstName,
-              last_name: form.lastName,
-              gender: form.gender,
-              address: form.address,
-              is_homeless: form.isHomeless,
-              job: form.job,
-              note: form.note,
-            },
-            orders: {
-              apple_count: form.appleCount,
-              banana_condiments: form.bananaCondiments
-                ? form.bananaCondiments.split(",")
-                : [],
-            },
-          }));
+        const practiceList = data.practice || [];
 
-          setForms(mappedData || []);
-          setActiveFormId(mappedData[0]?.id); // Set the first form as activeForm
-        } else {
-          console.error("No practiceList found in the response data");
+        //check if it is array or array is empty
+        if (!Array.isArray(practiceList) || !practiceList.length) {
+          console.error("no valid practice list found");
+          return;
         }
+
+        // Check if data contains practiceList, then map over practiceList
+        const mappedData = data.practiceList.map((form) => ({
+          id: form.mainFormId,
+          personal_info: {
+            first_name: form.firstName,
+            last_name: form.lastName,
+            gender: form.gender,
+            address: form.address,
+            is_homeless: form.isHomeless,
+            job: form.job,
+            note: form.note,
+          },
+          orders: {
+            apple_count: form.appleCount,
+            banana_condiments: form.bananaCondiments
+              ? form.bananaCondiments.split(",")
+              : [],
+          },
+        }));
+
+        setForms(mappedData || []);
+        setActiveFormId(mappedData[0]?.id); // Set the first form as activeForm
       } catch (err) {
         console.error("Error fetching data:", err);
       }

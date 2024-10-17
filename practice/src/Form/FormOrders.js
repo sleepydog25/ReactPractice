@@ -3,7 +3,7 @@ import Button from "../Button";
 
 const FormOrders = ({ orders, handleOrdersUpdate, mainFormId }) => {
   const updateCount = (amount) => {
-    const newCount = orders.apple_count + amount; // 直接從 props 中取值
+    const newCount = orders.apple_count + amount;
     handleOrdersUpdate({
       ...orders,
       apple_count: newCount,
@@ -13,8 +13,6 @@ const FormOrders = ({ orders, handleOrdersUpdate, mainFormId }) => {
   const CheckboxChange = useCallback(
     (e) => {
       const { id, checked } = e.target;
-
-      console.log(`Checkbox ${id} changed to ${checked}`);
 
       handleOrdersUpdate((prevOrders) => {
         const toppingsSet = new Set(prevOrders.banana_condiments);
