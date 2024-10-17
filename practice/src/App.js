@@ -174,20 +174,20 @@ function App() {
   console.log("ActiveFormId", activeFormId);
 
   // function to generate a new mainID
-  const generateNewMainId = () => {
-    const maxId = Math.max(
-      ...forms.map((form) => parseInt(form.id.substring(1)))
-    );
-    const newId = `A${String(maxId + 1).padStart(7, "0")}`;
-    return newId;
-  };
+  // const generateNewMainId = () => {
+  //   const maxId = Math.max(
+  //     ...forms.map((form) => parseInt(form.id.substring(1)))
+  //   );
+  //   const newId = `A${String(maxId + 1).padStart(7, "0")}`;
+  //   return newId;
+  // };
 
   //funciton to create a new form
 
   const createNewForm = async () => {
-    const newId = generateNewMainId();
+    // const newId = generateNewMainId();
     const newForm = {
-      id: newId,
+      // id: newId,
       personal_info: {
         first_name: "unknown",
         last_name: "unknown",
@@ -204,7 +204,7 @@ function App() {
     };
 
     const requestBody = JSON.stringify({
-      mainFormId: newForm.id,
+      // mainFormId: newForm.id,
       firstName: newForm.personal_info.first_name,
       lastName: newForm.personal_info.last_name,
       gender: newForm.personal_info.gender,
@@ -241,8 +241,27 @@ function App() {
       const result = await response.json();
       console.log("Form created:", result);
 
-      setForms([...forms, newForm]);
-      setActiveFormId(newId);
+      const createdForm = {
+        id: result.mainFormId,
+        personal_info: {
+          first_name: result.firstName,
+          last_name: result.lastName,
+          gender: result.gender,
+          address: result.address,
+          is_homeless: result.isHomeless,
+          job: result.job,
+          note: result.note,
+        },
+        orders: {
+          apple_count: result.appleCount,
+          banana_condiments: result.bananaCondiments
+            ? result.bananaCondiments.split(",")
+            : [],
+        },
+      };
+
+      setForms([...forms, createdForm]);
+      setActiveFormId(createdForm.id);
 
       //reload
       window.location.reload();

@@ -44,10 +44,16 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
+    // make extra blank go away
+    const firstName = personalinfo.first_name?.trim() || "unknown";
+    const lastName = personalinfo.last_name?.trim() || "unknown";
+
     // Construct the request body based on the backend's expected format
     const requestBody = JSON.stringify({
-      firstName: personalinfo.first_name,
-      lastName: personalinfo.last_name,
+      // firstName: personalinfo.first_name,
+      // lastName: personalinfo.last_name,
+      firstName: firstName,
+      lastName: lastName,
       gender: personalinfo.gender,
       address: personalinfo.address,
       isHomeless: personalinfo.is_homeless,
@@ -113,7 +119,7 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
   };
 
   const genderLabelStyle = {
-    flexBasis: "20%ㄏ",
+    flexBasis: "20%",
     textAlign: "left",
     paddingRight: "1rem",
   };
@@ -169,7 +175,7 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
               type="text"
               id="firstName"
               name="firstName"
-              value={personalinfo.first_name || "unknown"}
+              value={personalinfo.first_name || ""}
               // onChange={firstNameChange}
               onChange={(e) =>
                 handlePersonalInfo({
@@ -189,7 +195,7 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
               type="text"
               id="lastName"
               name="lastName"
-              value={personalinfo.last_name || "unknown"}
+              value={personalinfo.last_name || ""}
               // onChange={lastNameChange}
               onChange={(e) =>
                 handlePersonalInfo({
@@ -288,6 +294,7 @@ const FormPersonalInfo = ({ personalinfo, handlePersonalInfo, mainFormId }) => {
             }
             disabled={personalinfo.is_homeless}
             style={addressInputStyle}
+            required
           />
           <br />
           <input
