@@ -128,11 +128,11 @@ function App() {
 
         const practiceList = data.practice || [];
 
-        //check if it is array or array is empty
-        if (!Array.isArray(practiceList) || !practiceList.length) {
-          console.error("no valid practice list found");
-          return;
-        }
+        // //check if it is array or array is empty
+        // if (!Array.isArray(practiceList) || !practiceList.length) {
+        //   console.error("no valid practice list found");
+        //   return;
+        // }
 
         // Check if data contains practiceList, then map over practiceList
         const mappedData = data.practiceList.map((form) => ({
